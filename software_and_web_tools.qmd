@@ -1,0 +1,6 @@
+---
+title: "Software and Web Tools"
+editor: visual
+---
+
+[Influenza GBS Risk Calculator](https://stevenhawken.shinyapps.io/FluGBSapp)
