@@ -4,3 +4,5 @@ editor: visual
 ---
 
 [Influenza GBS Risk Calculator](https://stevenhawken.shinyapps.io/FluGBSapp)
+
+[Time to Detect a Safety Signal Using a Self-Controlled Case Series Surveillance Analysis](https://stevenhawken.shinyapps.io/sccs_time_to_detect)
