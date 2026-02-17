@@ -1,0 +1,125 @@
+personal:
+  name: Steven J. Hawken
+  title: Senior Scientist / Associate Professor
+  positions:
+  - Senior Scientist, Ottawa Hospital Research Institute
+  - Associate Professor, School of Epidemiology, Public Health and Preventive Medicine,
+    University of Ottawa
+  - Adjunct Scientist, Institute for Clinical Evaluative Sciences
+  - Affiliate Investigator, Children's Hospital of Eastern Ontario Research Institute
+  office:
+    address: Ottawa Hospital Research Institute, The Ottawa Hospital, General Campus,
+      501 Smyth Road, Box 201-B, Centre for Practice Changing Research, L1294, Ottawa,
+      ON K1H 8L6
+    phone: 613-737-8899 Ext 10672
+    email: shawken@ohri.ca
+education:
+- year: '2014'
+  degree: Ph.D. Epidemiology
+  institution: University of Ottawa
+- year: '2001'
+  degree: M.Sc. Applied Statistics
+  institution: University of Guelph
+- year: '1995'
+  degree: B.Sc. Honours Biological Science
+  institution: University of Guelph
+employment:
+- years: 2021-
+  title: Senior Scientist, Clinical Epidemiology Program
+  institution: Ottawa Hospital Research Institute
+  location: Ottawa, ON, Canada
+- years: 2020-
+  title: Associate Professor
+  institution: School of Epidemiology and Public Health, University of Ottawa
+  location: Ottawa, ON, Canada
+- years: 2016-
+  title: BORN Agent
+  institution: Better Outcomes Registry and Network (BORN)
+  location: Ontario, Canada
+- years: 2015-
+  title: Affiliate Investigator
+  institution: Children's Hospital of Eastern Ontario Research Institute
+  location: Ottawa, ON, Canada
+- years: 2015-
+  title: Member, Faculty of Graduate and Postdoctoral Studies
+  institution: University of Ottawa
+  location: Ottawa, ON, Canada
+- years: 2015-
+  title: Adjunct Scientist
+  institution: Institute for Clinical Evaluative Sciences
+  location: Ottawa, ON, Canada
+- years: 2014-2021
+  title: Scientist, Clinical Epidemiology Program
+  institution: Ottawa Hospital Research Institute
+  location: Ottawa, ON, Canada
+- years: 2015-2020
+  title: Assistant Professor
+  institution: School of Epidemiology and Public Health, University of Ottawa
+  location: Ottawa, ON, Canada
+- years: 2009-2015
+  title: Senior Methodologist/Lead Analyst
+  institution: ICES uOttawa, Ottawa Hospital Research Institute
+  location: Ottawa, ON, Canada
+- years: 2007-2009
+  title: Biostatistician and Research Manager
+  institution: Dept. of Epidemiology and Community Medicine, University of Ottawa
+  location: ON, Canada
+- years: 2006-2007
+  title: Program Lead for Research and Data Mining
+  institution: Canadian Institute for Health Information
+  location: Ottawa, ON, Canada
+- years: 2005-2006
+  title: Senior Analyst
+  institution: Canadian Institute for Health Information
+  location: Ottawa, ON, Canada
+- years: 2000-2005
+  title: Biostatistician
+  institution: Population Health Research Institute, McMaster University
+  location: Hamilton, ON, Canada
+additional_training:
+- date: May 25-26, 2020
+  title: Statistical Machine Learning for Biomedical Data
+  instructor: Dr. Noah Simon
+  institution: University of Washington
+  location: Virtual
+- date: May 6-7, 2019
+  title: Regression Modeling Strategies
+  instructor: Frank E Harrell Jr
+  institution: Vanderbilt University School of Medicine
+  location: Ottawa, ON, Canada
+- date: June 18-19, 2018
+  title: Epigenomic Data Analysis
+  instructor: Bioinformatics.ca
+  location: Vancouver, BC, Canada
+- date: June 11-12, 2018
+  title: Informatics and Statistics for Metabolomics
+  instructor: Bioinformatics.ca
+  location: Montreal, QC, Canada
+- date: June 5-7, 2018
+  title: Analysis of Metagenomic Data
+  instructor: Bioinformatics.ca
+  location: Toronto, ON, Canada
+- date: May 16-19, 2018
+  title: Symposium on Data Science and Statistics
+  instructor: American Statistical Association
+  location: Reston, Virginia, USA
+recognitions:
+- year: '2016'
+  award: Canadian Newborn & Child Screening Symposium, Poster Award
+  description: Sood MM, Murphy MSQ, Wong CA, Atkinson KM, Hawken S, Burns KD, Potter
+    BK, Chakraborty P, Wilson K. Predictive value of metabolic biomarkers at birth
+    for the development of chronic kidney disease or kidney failure in early childhood.
+    Ottawa, Ontario. 21-22 Apr 2016.
+- year: '2016'
+  award: Canadian Newborn & Child Screening Symposium, Poster Award
+  description: Hawken S, Ducharme R, Murphy MSQ, Atkinson KM, Potter BK, Chakraborty
+    P, Wilson K. Validation in ethnic subgroups of a gestational age prediction algorithm
+    developed using routinely collected newborn screening metabolic profiles in Ontario.
+    Ottawa, Ontario. 21-22 Apr 2016.
+- year: '2015'
+  award: University of Ottawa Faculty of Medicine, Best Thesis Award
+  description: PhD in Epidemiology Program
+- year: '2014'
+  award: University of Ottawa Faculty of Medicine, Award of Excellence in Graduate
+    Studies
+  description: PhD in Epidemiology Program
