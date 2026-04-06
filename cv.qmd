@@ -1,0 +1,669 @@
+---
+title: "Curriculum Vitae"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    toc-title: "Sections"
+    css: cv-styles.css
+---
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+# Load required libraries
+library(yaml)
+library(scholar)
+library(dplyr)
+library(stringr)
+
+# Read CV data from YAML file
+cv_data <- read_yaml("cv_data.yml")
+
+# Helper function to format names with bold for Steven Hawken
+bold_author <- function(text) {
+  gsub("(Hawken S|Hawken, S|Steven Hawken|S Hawken|S\\.? Hawken)",
+       "**\\1**",
+       text,
+       ignore.case = FALSE)
+}
+
+# Helper function to escape pipes in table cells
+escape_pipes <- function(text) {
+  if (is.null(text) || is.na(text)) return("")
+  gsub("\\|", "/", text)
+}
+```
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+# Header with name and download button
+personal <- cv_data$personal
+name <- personal$name
+positions <- personal$positions
+links <- personal$links
+
+cat("# ", name, "\n\n")
+
+# Display positions
+if (!is.null(positions) && length(positions) > 0) {
+  for (pos in positions) {
+    cat(pos, "\n\n")
+  }
+}
+
+# Display links
+if (!is.null(links)) {
+  link_parts <- c()
+  if (!is.null(links$ohri_profile)) link_parts <- c(link_parts, sprintf("[OHRI Profile](%s)", links$ohri_profile))
+  if (!is.null(links$google_scholar)) link_parts <- c(link_parts, sprintf("[Google Scholar](%s)", links$google_scholar))
+  if (!is.null(links$pubmed)) link_parts <- c(link_parts, sprintf("[PubMed](%s)", links$pubmed))
+  if (!is.null(links$orcid) && links$orcid != "https://orcid.org/") link_parts <- c(link_parts, sprintf("[ORCID](%s)", links$orcid))
+  if (!is.null(links$github)) link_parts <- c(link_parts, sprintf("[GitHub](%s)", links$github))
+  if (length(link_parts) > 0) cat(paste(link_parts, collapse = " | "), "\n\n")
+}
+
+# Download PDF button
+cat("<div style='margin: 20px 0;'>")
+cat("<a href='shawken_CV.pdf' class='btn btn-primary' style='display: inline-block; padding: 10px 20px; background-color: #0066cc; color: white; text-decoration: none; border-radius: 4px;'>Download PDF</a>")
+cat("</div>\n\n")
+```
+
+## Education
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+education <- cv_data$education
+
+if (!is.null(education) && length(education) > 0) {
+  for (edu in education) {
+    cat("**", edu$degree, "** | ", edu$institution, " (", edu$year, ")\n\n")
+  }
+}
+```
+
+## Employment History
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+employment <- cv_data$employment
+
+if (!is.null(employment) && length(employment) > 0) {
+  for (emp in employment) {
+    loc_part <- if (!is.null(emp$location) && emp$location != "") paste0(", ", emp$location) else ""
+    cat("**", emp$years, "** | ", emp$title, ", ", emp$institution, loc_part, "\n\n")
+  }
+}
+```
+
+## Academic Honours and Awards
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+honours <- cv_data$academic_honours
+
+if (!is.null(honours) && length(honours) > 0) {
+  for (honour in honours) {
+    cat("**", honour$year, "** — ", honour$award, ", ", honour$program, "\n\n")
+  }
+}
+```
+
+## Research Funding
+
+### External Research Funding
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+external <- cv_data$external_research_funding
+
+if (!is.null(external) && length(external) > 0) {
+  # Create table data
+  table_data <- data.frame(
+    Years = character(),
+    Source = character(),
+    Title = character(),
+    Role = character(),
+    Amount = character(),
+    stringsAsFactors = FALSE
+  )
+
+  for (grant in external) {
+    # Format amount
+    amount <- ""
+    if (!is.null(grant$amount_cad)) {
+      amount <- paste0("$", format(grant$amount_cad, big.mark = ","), " CAD")
+    } else if (!is.null(grant$amount_usd)) {
+      amount <- paste0("$", format(grant$amount_usd, big.mark = ","), " USD")
+    } else if (!is.null(grant$amount_total_cad)) {
+      amount <- paste0("$", format(grant$amount_total_cad, big.mark = ","), " CAD")
+    }
+
+    table_data <- rbind(table_data, data.frame(
+      Years = if (!is.null(grant$year)) grant$year else "",
+      Source = escape_pipes(grant$funder),
+      Title = escape_pipes(grant$title),
+      Role = escape_pipes(if (!is.null(grant$role)) grant$role else ""),
+      Amount = amount,
+      stringsAsFactors = FALSE
+    ))
+  }
+
+  knitr::kable(table_data, format = "html")
+}
+```
+
+### Internal Research Funding
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+internal <- cv_data$internal_research_funding
+
+if (!is.null(internal) && length(internal) > 0) {
+  # Create table data
+  table_data <- data.frame(
+    Years = character(),
+    Source = character(),
+    Title = character(),
+    Role = character(),
+    Amount = character(),
+    stringsAsFactors = FALSE
+  )
+
+  for (grant in internal) {
+    # Format amount
+    amount <- ""
+    if (!is.null(grant$amount_cad)) {
+      amount <- paste0("$", format(grant$amount_cad, big.mark = ","), " CAD")
+    }
+
+    table_data <- rbind(table_data, data.frame(
+      Years = if (!is.null(grant$year)) grant$year else "",
+      Source = escape_pipes(grant$funder),
+      Title = escape_pipes(grant$title),
+      Role = escape_pipes(if (!is.null(grant$role)) grant$role else ""),
+      Amount = amount,
+      stringsAsFactors = FALSE
+    ))
+  }
+
+  knitr::kable(table_data, format = "html")
+}
+```
+
+## Teaching
+
+### Graduate Courses
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+teaching <- cv_data$teaching
+
+if (!is.null(teaching$graduate_courses) && length(teaching$graduate_courses) > 0) {
+  for (course in teaching$graduate_courses) {
+    cat("**", course$year, "** | ", course$code, ": ", course$title, "\n\n")
+    cat(course$institution, "\n\n")
+    if (!is.null(course$description)) {
+      cat(course$description, "\n\n")
+    }
+  }
+} else {
+  cat("*No graduate courses listed*\n\n")
+}
+```
+
+### Guest Lectures
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+if (!is.null(teaching$guest_lectures) && length(teaching$guest_lectures) > 0) {
+  for (lecture in teaching$guest_lectures) {
+    cat("**", lecture$year, "** | ", lecture$title, "\n\n")
+    cat(lecture$course, ", ", lecture$institution, "\n\n")
+  }
+} else {
+  cat("*No guest lectures listed*\n\n")
+}
+```
+
+## Conference Session Organizing
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+conf_sessions <- cv_data$conference_session_organizing
+
+if (!is.null(conf_sessions) && length(conf_sessions) > 0) {
+  for (session in conf_sessions) {
+    cat("**", session$year, "** — ", session$title, "\n\n")
+    cat(session$role, ", ", session$conference, ", ", session$location, "\n\n")
+  }
+} else {
+  cat("*No conference sessions listed*\n\n")
+}
+```
+
+## Trainee Supervision
+
+### Current / In Progress
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+trainee <- cv_data$trainee_supervision
+
+if (!is.null(trainee$current_inprogress) && length(trainee$current_inprogress) > 0) {
+  for (student in trainee$current_inprogress) {
+    cat("**", student$name, "**\n\n")
+    cat(student$degree, " | ", student$institution, " (", student$years, ")\n\n")
+    cat("Thesis: ", student$thesis_topic, "\n\n")
+    cat("Role: ", student$role, "\n\n")
+  }
+} else {
+  cat("*No students currently supervised*\n\n")
+}
+```
+
+### Completed
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+if (!is.null(trainee$completed) && length(trainee$completed) > 0) {
+  for (student in trainee$completed) {
+    cat("**", student$name, "**\n\n")
+    cat(student$degree, " | ", student$institution, " (", student$years, ")\n\n")
+    cat("Thesis: ", student$thesis_topic, "\n\n")
+    cat("Role: ", student$role, "\n\n")
+    if (!is.null(student$current_position)) {
+      cat("Current Position: ", student$current_position, "\n\n")
+    }
+    if (!is.null(student$award)) {
+      cat("Award: ", student$award, "\n\n")
+    }
+  }
+} else {
+  cat("*No completed students listed*\n\n")
+}
+```
+
+## Thesis Advisory Committee Memberships
+
+### In Progress
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+tac <- cv_data$thesis_advisory_committee_member
+if (!is.null(tac$in_progress) &&
+    length(tac$in_progress) > 0) {
+  for (member in tac$in_progress) {
+    cat("- ", member$name, " (", member$degree, ")\n")
+  }
+  cat("\n")
+} else {
+  cat("*No current memberships*\n\n")
+}
+```
+
+### Completed
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+tac <- cv_data$thesis_advisory_committee_member
+if (!is.null(tac$completed) &&
+    length(tac$completed) > 0) {
+  for (member in tac$completed) {
+    cat("- ", member$name, " (", member$degree, ", ", member$year, ")\n")
+  }
+  cat("\n")
+} else {
+  cat("*No completed memberships listed*\n\n")
+}
+```
+
+## Scholarly Activities
+
+### Thesis Examiner
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+examiner <- cv_data$thesis_examiner
+
+if (!is.null(examiner) && length(examiner) > 0) {
+  for (exam in examiner) {
+    cat("**", exam$date, "** — ", exam$candidate, ", ", exam$degree, ", ", exam$institution, "\n\n")
+  }
+}
+```
+
+### Thesis Defense Chair
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+chair <- cv_data$thesis_defense_chairperson
+
+if (!is.null(chair) && length(chair) > 0) {
+  for (c in chair) {
+    cat("**", c$date, "** — ", c$candidate, ", ", c$degree, "\n\n")
+  }
+}
+```
+
+### Thesis Proposal Examiner
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+prop_examiner <- cv_data$thesis_proposal_examiner
+
+if (!is.null(prop_examiner) && length(prop_examiner) > 0) {
+  for (prop in prop_examiner) {
+    cat("**", prop$date, "** — ", prop$candidate, ", ", prop$degree, "\n\n")
+  }
+}
+```
+
+### PhD Comprehensive Examiner
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+comp_examiner <- cv_data$phd_comprehensive_examiner
+
+if (!is.null(comp_examiner) && length(comp_examiner) > 0) {
+  for (comp in comp_examiner) {
+    cat("**", comp$date, "** — ", comp$candidate, ", ", comp$degree)
+    if (!is.null(comp$note)) {
+      cat(" (", comp$note, ")")
+    }
+    cat("\n\n")
+  }
+}
+```
+
+## Data Safety Monitoring Committees
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+dsmc <- cv_data$data_safety_monitoring_committees
+
+if (!is.null(dsmc) && length(dsmc) > 0) {
+  for (committee in dsmc) {
+    cat("**", committee$years, "** — Member, DSMC\n\n")
+    cat("Study: ", committee$study, "\n\n")
+    cat("PI: ", committee$pi, ", ", committee$institution, "\n\n")
+  }
+} else {
+  cat("*No DSMC memberships listed*\n\n")
+}
+```
+
+## Grant Review Committees
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+grant_review <- cv_data$grant_review_committees
+
+if (!is.null(grant_review) && length(grant_review) > 0) {
+  for (committee in grant_review) {
+    cat("**", committee$date, "** — Peer Reviewer, ", committee$funder, ", ", committee$program)
+    if (!is.null(committee$effort)) {
+      cat("\n\n", committee$effort)
+    }
+    cat("\n\n")
+  }
+} else {
+  cat("*No grant review committee memberships listed*\n\n")
+}
+```
+
+## Editorial and Peer Review
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+editorial <- cv_data$editorial_review
+
+if (!is.null(editorial$journals) && length(editorial$journals) > 0) {
+  cat("**Journal Editorial Boards and Peer Review**\n\n")
+  for (journal in editorial$journals) {
+    cat("- ", journal, "\n")
+  }
+  cat("\n")
+}
+```
+
+## Invited Talks and Seminars
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+invited <- cv_data$invited_talks_seminars
+
+if (!is.null(invited) && length(invited) > 0) {
+  for (talk in invited) {
+    cat("**", talk$year, "** — ", talk$title, " | ", talk$event)
+    if (!is.null(talk$location)) {
+      cat(" (", talk$location, ")")
+    }
+    cat("\n\n")
+  }
+} else {
+  cat("*No invited talks listed*\n\n")
+}
+```
+
+## Publications
+
+```{r}
+#| output: false
+#| echo: false
+#| warning: false
+#| message: false
+
+# Try to get publications from Google Scholar with caching
+cache_file <- "_pub_cache.rds"
+pubs <- NULL
+profile <- NULL
+
+tryCatch({
+  # Attempt to fetch from Google Scholar
+  pubs <- scholar::get_publications("aTyysxgAAAAJ")
+  if (!is.null(pubs) && nrow(pubs) > 0) {
+    pubs <- pubs[order(-pubs$year, pubs$title), ]
+    saveRDS(pubs, cache_file)
+  }
+}, error = function(e) {
+  # Fall back to cache if available
+  if (file.exists(cache_file)) {
+    pubs <<- readRDS(cache_file)
+  }
+})
+
+# Get profile for h-index and total citations
+tryCatch({
+  profile <- scholar::get_profile("aTyysxgAAAAJ")
+}, error = function(e) {
+  profile <- NULL
+})
+```
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+# Display profile statistics if available
+if (!is.null(profile)) {
+  cat("**Profile Statistics:**\n\n")
+  cat("- **H-Index**: ", profile$h_index, "\n")
+  cat("- **i10-Index**: ", profile$i10_index, "\n")
+  cat("- **Total Citations**: ", profile$total_cites, "\n\n")
+}
+
+cat("### Peer-Reviewed Publications\n\n")
+
+# Display publications from Google Scholar if available
+if (!is.null(pubs) && nrow(pubs) > 0) {
+  # Group by year
+  years <- sort(unique(pubs$year), decreasing = TRUE)
+
+  pub_counter <- 1
+  total_pubs <- nrow(pubs)
+
+  for (yr in years) {
+    pubs_this_year <- pubs[pubs$year == yr, ]
+    cat("#### ", yr, " (", nrow(pubs_this_year), " publication(s))\n\n")
+
+    for (i in 1:nrow(pubs_this_year)) {
+      pub <- pubs_this_year[i, ]
+
+      # Format authors (bold Steven Hawken if present)
+      authors <- bold_author(pub$author)
+
+      # Build citation
+      citation <- paste0(
+        total_pubs - pub_counter + 1, ". ",
+        authors, ". ",
+        "**", pub$title, "**. ",
+        "*", pub$journal, "*"
+      )
+
+      if (!is.na(pub$year) && pub$year != "") {
+        citation <- paste0(citation, ", ", pub$year)
+      }
+
+      citation <- paste0(citation, ".")
+
+      # Add citation count if available
+      if (!is.na(pub$cites) && pub$cites > 0) {
+        citation <- paste0(citation, " [", pub$cites, " citations]")
+      }
+
+      cat(citation, "\n\n")
+      pub_counter <- pub_counter + 1
+    }
+  }
+} else {
+  cat("*Publications not currently available. Please check again later.*\n\n")
+}
+```
+
+### Preprints
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+preprints <- cv_data$preprints
+
+if (!is.null(preprints) && length(preprints) > 0) {
+  for (preprint in preprints) {
+    authors <- bold_author(preprint$authors)
+    cat("**", preprint$title, "**\n\n")
+    cat(authors, ". ")
+    if (!is.null(preprint$date)) {
+      cat(preprint$date, ". ")
+    }
+    cat(preprint$arxiv, "\n\n")
+  }
+} else {
+  cat("*No preprints listed*\n\n")
+}
+```
+
+---
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+# Footer with last updated date
+update_date <- Sys.Date()
+cat("**Last updated:** ", format(update_date, "%B %d, %Y"), "\n\n")
+```

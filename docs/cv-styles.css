@@ -1,0 +1,619 @@
+/* Academic CV Stylesheet for Quarto + Cosmo Theme */
+
+/* ======================
+   General CV Styling
+   ====================== */
+
+body.cv {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* ======================
+   CV Header
+   ====================== */
+
+.cv-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.cv-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #003d7a; /* Cosmo primary-like color */
+}
+
+.cv-header .positions,
+.cv-header .position-list {
+  font-size: 1.1rem;
+  color: #495057;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.cv-header .contact-links,
+.cv-header .cv-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.cv-header a {
+  color: #0d6efd; /* Bootstrap primary */
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.cv-header a:hover {
+  color: #003d7a;
+  text-decoration: underline;
+}
+
+.cv-header a::before {
+  margin-right: 0.4rem;
+}
+
+/* ======================
+   Section Headers
+   ====================== */
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1.2rem;
+  color: #003d7a;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #0d6efd;
+}
+
+h2:first-of-type {
+  margin-top: 0;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  color: #495057;
+}
+
+/* ======================
+   Entry Styling
+   ====================== */
+
+.cv-entry,
+.pub-entry {
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+}
+
+.entry-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #212529;
+  margin-bottom: 0.25rem;
+}
+
+.entry-subtitle {
+  font-size: 0.95rem;
+  color: #6c757d;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.entry-date {
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.entry-details {
+  font-size: 0.95rem;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+/* ======================
+   Publication Styling
+   ====================== */
+
+.pub-entry {
+  line-height: 1.7;
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+  background-color: #f8f9fa;
+  border-left: 3px solid #0d6efd;
+}
+
+.pub-entry p {
+  margin: 0.5rem 0;
+}
+
+.pub-entry a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.pub-entry a:hover {
+  text-decoration: underline;
+}
+
+.pub-stats {
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid #dee2e6;
+  font-size: 0.9rem;
+  color: #6c757d;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pub-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* ======================
+   Table Styling
+   ====================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  background-color: white;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+thead {
+  background-color: #f8f9fa;
+}
+
+thead th {
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: #212529;
+  border-bottom: 2px solid #dee2e6;
+  font-size: 0.95rem;
+}
+
+tbody td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+  font-size: 0.95rem;
+}
+
+/* Zebra striping for better readability */
+tbody tr:nth-child(odd) {
+  background-color: #fafbfc;
+}
+
+tbody tr:hover {
+  background-color: #e7f1ff;
+  transition: background-color 0.15s ease;
+}
+
+/* Funding table specific styling */
+.funding-table {
+  margin-bottom: 2rem;
+}
+
+.funding-table h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+/* ======================
+   Horizontal Rules
+   ====================== */
+
+hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid #dee2e6;
+}
+
+/* ======================
+   Button Styling
+   ====================== */
+
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+  background-color: #0d6efd;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  border: 1px solid #0d6efd;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0b5ed7;
+  border-color: #0b5ed7;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0b5ed7;
+}
+
+/* ======================
+   CV Footer
+   ====================== */
+
+.cv-footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #dee2e6;
+  font-size: 0.85rem;
+  color: #6c757d;
+  text-align: right;
+}
+
+/* ======================
+   Lists and Paragraphs
+   ====================== */
+
+p {
+  margin-bottom: 0.8rem;
+}
+
+strong {
+  font-weight: 600;
+  color: #212529;
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+/* ======================
+   Responsive Design
+   ====================== */
+
+@media (max-width: 768px) {
+  .cv-header h1 {
+    font-size: 2rem;
+  }
+
+  .cv-header .contact-links,
+  .cv-header .cv-links {
+    gap: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  /* Make tables scrollable on mobile */
+  .table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    min-width: 500px;
+    font-size: 0.9rem;
+  }
+
+  thead th {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  tbody td {
+    padding: 0.6rem;
+  }
+
+  .pub-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cv-footer {
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  body {
+    font-size: 0.95rem;
+  }
+
+  .cv-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .cv-header .positions {
+    font-size: 1rem;
+  }
+
+  .cv-header a {
+    font-size: 0.9rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  .entry-title {
+    font-size: 0.95rem;
+  }
+
+  .pub-entry {
+    padding: 0.75rem;
+  }
+
+  table {
+    font-size: 0.85rem;
+  }
+
+  thead th {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  tbody td {
+    padding: 0.5rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ======================
+   Print Styles
+   ====================== */
+
+@media print {
+  body {
+    background-color: white;
+    font-size: 10pt;
+    line-height: 1.4;
+  }
+
+  .cv-header {
+    page-break-after: avoid;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .cv-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .cv-header .positions,
+  .cv-header .contact-links {
+    font-size: 0.9rem;
+  }
+
+  h2 {
+    margin-top: 1.2rem;
+    margin-bottom: 0.6rem;
+    font-size: 1.2rem;
+    page-break-after: avoid;
+    border-bottom: 1px solid #ccc;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.4rem;
+    page-break-after: avoid;
+  }
+
+  .cv-entry,
+  .pub-entry {
+    page-break-inside: avoid;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+  }
+
+  table {
+    margin: 0.8rem 0;
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group; /* Repeat header on new pages */
+    background-color: #f5f5f5;
+  }
+
+  thead th {
+    border-bottom: 1px solid #ccc;
+    padding: 0.4rem;
+    font-size: 0.85rem;
+  }
+
+  tbody td {
+    padding: 0.4rem;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: transparent;
+  }
+
+  tbody tr:hover {
+    background-color: transparent;
+  }
+
+  .pub-entry {
+    background-color: transparent;
+    border-left: none;
+    padding: 0.6rem 0;
+  }
+
+  .pub-stats {
+    margin-top: 0.4rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid #ddd;
+    font-size: 0.8rem;
+  }
+
+  .cv-footer {
+    margin-top: 1.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #ccc;
+    font-size: 0.75rem;
+  }
+
+  .btn {
+    display: none; /* Hide buttons in print */
+  }
+
+  hr {
+    margin: 0.8rem 0;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  /* Avoid widows and orphans */
+  p, li {
+    orphans: 3;
+    widows: 3;
+  }
+}
+
+/* ======================
+   Dark Mode Support
+   ====================== */
+
+@media (prefers-color-scheme: dark) {
+  body.cv {
+    color: #e9ecef;
+    background-color: #212529;
+  }
+
+  .cv-header {
+    border-bottom-color: #495057;
+  }
+
+  .cv-header h1 {
+    color: #6dd5ff;
+  }
+
+  .cv-header .positions {
+    color: #adb5bd;
+  }
+
+  .cv-header a {
+    color: #74c0fc;
+  }
+
+  .cv-header a:hover {
+    color: #a5d8ff;
+  }
+
+  h2 {
+    color: #6dd5ff;
+    border-bottom-color: #74c0fc;
+  }
+
+  h3 {
+    color: #adb5bd;
+  }
+
+  .entry-title {
+    color: #e9ecef;
+  }
+
+  .entry-subtitle,
+  .entry-date,
+  .entry-details {
+    color: #adb5bd;
+  }
+
+  .pub-entry {
+    background-color: #2d3139;
+    border-left-color: #74c0fc;
+  }
+
+  .pub-entry a {
+    color: #74c0fc;
+  }
+
+  table {
+    background-color: #2d3139;
+    border-color: #495057;
+  }
+
+  thead {
+    background-color: #1a1d23;
+  }
+
+  thead th {
+    color: #e9ecef;
+    border-bottom-color: #495057;
+  }
+
+  tbody td {
+    border-bottom-color: #495057;
+    color: #e9ecef;
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: #323740;
+  }
+
+  tbody tr:hover {
+    background-color: #3d4754;
+  }
+
+  .cv-footer {
+    border-top-color: #495057;
+    color: #adb5bd;
+  }
+
+  hr {
+    border-top-color: #495057;
+  }
+}

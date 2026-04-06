@@ -1,0 +1,134 @@
+---
+title: "Programming Resources (R & SAS)"
+subtitle: "Free, high-quality learning links for MSc/PhD students (beginner-friendly)"
+---
+
+## R programming resources
+
+### Core pathway (start here)
+
+#### R for Data Science (R4DS) — *the main course companion*
+
+-   <https://r4ds.hadley.nz>\
+-   Best for: students new to programming who need a practical workflow\
+-   Topics: importing, wrangling, visualization, functions, iteration, reporting
+
+#### Hands-On Programming with R — *gentle intro to programming concepts*
+
+-   <https://rstudio-education.github.io/hopr/>\
+-   Best for: understanding objects, vectors, functions, and control flow
+
+#### RStudio — *R Learning Paths*
+
+-   <https://education.rstudio.com/learn/>\
+-   Best for: Learning R from beginner to advanced
+
+------------------------------------------------------------------------
+
+### R for epidemiology and health research
+
+#### The Epidemiologist’s R Handbook — *applied epi/public health workflows*
+
+-   <https://epirhandbook.com>\
+-   Best for: health-focused examples and “how to do the thing” guidance\
+-   Great for: descriptive epi, cleaning, regression workflows, reporting
+
+#### R4DS Online Learning Community — *guided practice + peer support*
+
+-   <https://rfordatasci.com>\
+-   Best for: structured learning, exercises, accountability
+
+------------------------------------------------------------------------
+
+### Working with larger datasets (scaling up)
+
+#### Efficient R Programming — *performance and memory awareness*
+
+-   <https://csgillespie.github.io/efficientR/>\
+-   Best for: moving beyond toy datasets; faster, cleaner code
+
+::: callout-tip
+### Practical “large data” mindset (for health admin datasets)
+
+-   Read only the columns you need\
+-   Use joins carefully (check row counts before/after)\
+-   Summarize early; avoid duplicating huge objects\
+-   Learn to profile slow steps (later in the term)
+:::
+
+------------------------------------------------------------------------
+
+### Reproducible reporting (required skill for health research)
+
+#### R Markdown: The Definitive Guide
+
+-   <https://bookdown.org/yihui/rmarkdown/>\
+-   Best for: transparent, reproducible analyses
+
+#### Quarto Guide (Posit)
+
+-   <https://quarto.org/docs/guide/>\
+-   Best for: reports, slide decks, websites, and publishing course work
+
+------------------------------------------------------------------------
+
+## SAS programming resources
+
+### Core pathway (start here)
+
+#### SAS Documentation (official)
+
+-   <https://documentation.sas.com>\
+-   Best for: authoritative reference on DATA step and PROC basics\
+-   Use for: `DATA` step, `PROC SORT`, `PROC FREQ`, `PROC MEANS`, `PROC SQL`
+
+#### SAS for Students (Academic / Skill Builder landing)
+
+-   <https://www.sas.com/en_ca/learn/academic-programs/students.html>\
+-   Best for: student learning pathways and getting access via academic programs (availability varies)
+
+------------------------------------------------------------------------
+
+### SAS for applied statistics (health-relevant examples)
+
+#### UCLA IDRE SAS resources (excellent applied tutorials)
+
+-   <https://stats.oarc.ucla.edu/sas/>\
+-   Best for: clear explanations + worked examples\
+-   Great for: regression, categorical data, data management patterns
+
+------------------------------------------------------------------------
+
+### SAS + large datasets (real-world patterns)
+
+#### SAS Global Forum proceedings (conference papers)
+
+-   <https://www.sas.com/en_us/events/sas-global-forum.html>\
+-   Best for: practical approaches to large tables, optimization, reporting
+
+#### Lex Jansen (searchable SAS conference paper archive)
+
+-   <https://www.lexjansen.com>\
+-   Best for: finding “how do I do X in SAS?” by use case (including health/claims-style problems)
+
+------------------------------------------------------------------------
+
+## Bookmark list (fast access)
+
+### R
+
+-   R4DS: <https://r4ds.hadley.nz>\
+-   HOPR: <https://rstudio-education.github.io/hopr/>\
+-   RStudio Learn R: <https://education.rstudio.com/learn/>\
+-   Epi R Handbook: <https://epirhandbook.com>\
+-   Efficient R: <https://csgillespie.github.io/efficientR/>\
+-   R Markdown: <https://bookdown.org/yihui/rmarkdown/>\
+-   Quarto: <https://quarto.org/docs/guide/>
+
+### SAS
+
+-   SAS Docs: <https://documentation.sas.com>\
+-   SAS students: <https://www.sas.com/en_ca/learn/academic-programs/students.html>\
+-   UCLA IDRE SAS: <https://stats.oarc.ucla.edu/sas/>\
+-   SAS Global Forum: <https://www.sas.com/en_us/events/sas-global-forum.html>\
+-   Lex Jansen: <https://www.lexjansen.com>
