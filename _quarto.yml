@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: docs
+  post-render:
+    - "cp CNAME docs/CNAME"
+    - "touch docs/.nojekyll"
 
 execute:
   freeze: auto
