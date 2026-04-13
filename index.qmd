@@ -11,3 +11,5 @@ title: "Steven Hawken PhD"
 **Associate Professor**, School of Epidemiology and Public Health, University of Ottawa
 
 Epidemiology and Biostatistics, Data Science, AI and Machine Learning
+
+<a href="https://linkedin.com/in/steven-hawken-16204579"><i class="bi bi-linkedin"></i> LinkedIn</a> | <a href="https://ohri.ca/en/find-researcher/steven-hawken">OHRI Profile</a> | <a href="http://scholar.google.ca/citations?hl=en&user=aTyysxgAAAAJ">Google Scholar</a> | <a href="http://www.ncbi.nlm.nih.gov/sites/myncbi/collections/public/1j53ef-4jr6VXs7A-zYHqa7A9/?sort=date&direction=descending">PubMed</a>

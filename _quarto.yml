@@ -19,10 +19,14 @@ website:
         href: https://github.com/stevenhawken
       - icon: twitter
         href: https://twitter.com/stevenhawken
+      - icon: linkedin
+        href: https://linkedin.com/in/steven-hawken-16204579
+      - href: https://ohri.ca/en/find-researcher/steven-hawken
+        text: "OHRI Profile"
       - href: http://www.ncbi.nlm.nih.gov/sites/myncbi/collections/public/1j53ef-4jr6VXs7A-zYHqa7A9/?sort=date&direction=descending
-        text: "Pubmed link"
+        text: "Pubmed"
       - href: http://scholar.google.ca/citations?hl=en&user=aTyysxgAAAAJ
-        text: "Google Scholar link"
+        text: "Google Scholar"
       - href: cv.qmd
         text: "Curriculum Vitae"
       - file: software_and_web_tools.qmd
