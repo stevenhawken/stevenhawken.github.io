@@ -2,6 +2,12 @@
 title: "Steven Hawken PhD"
 ---
 
-![](shapeimage_1.png)
+<div style="text-align: center; margin: 1rem 0 1.5rem 0;">
+<img src="hero_banner.png" alt="Steven Hawken - AI, Epidemiology, and Biostatistics" style="width: 100%; max-width: 1200px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+</div>
+
+**Senior Scientist**, Ottawa Hospital Research Institute
+
+**Associate Professor**, School of Epidemiology and Public Health, University of Ottawa
 
 Epidemiology and Biostatistics, Data Science, AI and Machine Learning
