@@ -9,16 +9,15 @@ format:
 ---
 
 ```{r}
-#| output: asis
-#| echo: false
-#| warning: false
-#| message: false
+#| include: false
 
 # Load required libraries
-library(yaml)
-library(scholar)
-library(dplyr)
-library(stringr)
+suppressPackageStartupMessages({
+  library(yaml)
+  library(scholar)
+  library(dplyr)
+  library(stringr)
+})
 
 # Read CV data from YAML file
 cv_data <- read_yaml("cv_data.yml")
