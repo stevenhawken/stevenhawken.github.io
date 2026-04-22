@@ -104,13 +104,23 @@ fetch_myncbi <- function(url, max_pages = 20) {
 }
 
 # ---- fetch_rentrez ----
-fetch_rentrez <- function(author_term = "Hawken S[Author]",
-                          aff_terms = c("Ottawa", "OHRI", "ICES"),
-                          retmax = 500) {
+fetch_rentrez <- function(orcid = "0000-0002-3341-9022",
+                          author_term = "Hawken S[Author]",
+                          aff_terms = c("Ottawa", "OHRI",
+                                        "Institute for Clinical Evaluative Sciences",
+                                        "ICES",
+                                        "CHEO",
+                                        "Children's Hospital of Eastern Ontario"),
+                          retmax = 1000) {
   tryCatch({
     aff <- paste0("(", paste(sprintf("%s[Affiliation]", aff_terms), collapse = " OR "), ")")
-    query <- paste(author_term, "AND", aff)
+    aff_clause <- paste0("(", author_term, " AND ", aff, ")")
+    query <- if (!is.null(orcid) && nzchar(orcid)) {
+      paste0("(", orcid, "[AUID] OR ", aff_clause, ")")
+    } else aff_clause
+    cat("rentrez query: ", query, "\n", sep = "")
     sres <- rentrez::entrez_search(db = "pubmed", term = query, retmax = retmax)
+    cat("rentrez found ", length(sres$ids), " PMIDs\n", sep = "")
     if (length(sres$ids) == 0) return(NULL)
 
     id_chunks <- split(sres$ids, ceiling(seq_along(sres$ids) / 100))
@@ -193,10 +203,10 @@ tryCatch({
 }, error = function(e) cat("Probe failed: ", conditionMessage(e), "\n"))
 cat("\n")
 
-cat("Trying MyNCBI scrape first...\n")
-pubs <- fetch_myncbi(myncbi_url)
+cat("Querying PubMed via rentrez (MyNCBI scrape disabled — JS pagination)...\n")
+pubs <- fetch_rentrez()
 if (is.null(pubs)) {
-  cat("MyNCBI returned nothing — running diagnostic to figure out why...\n\n")
+  cat("rentrez returned nothing — running MyNCBI diagnostic for the record...\n\n")
   tryCatch({
     page <- rvest::read_html(myncbi_url)
     cat("Page title: ", rvest::html_text2(rvest::html_element(page, "title")), "\n")
@@ -230,8 +240,8 @@ if (is.null(pubs)) {
   }, error = function(e) {
     cat("Diagnostic failed too: ", conditionMessage(e), "\n")
   })
-  cat("\nFalling back to rentrez for now...\n")
-  pubs <- fetch_rentrez()
+  cat("\nFalling back to MyNCBI scrape (will likely return only first 50)...\n")
+  pubs <- fetch_myncbi(myncbi_url)
 }
 
 if (is.null(pubs) || nrow(pubs) == 0) {

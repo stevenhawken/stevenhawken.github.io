@@ -541,7 +541,13 @@ if (!is.null(invited) && length(invited) > 0) {
 #| output: false
 #| echo: false
 #| warning: false
-#| message: false
+#| message: true
+#| cache: false
+#| freeze: false
+
+# Sentinel: prove this chunk ran (even if Quarto suppresses messages)
+cat("---- pub fetch chunk started ", format(Sys.time()), " ----\n",
+    file = "_pubmed_fetch.log", append = TRUE)
 
 # ---- Google Scholar profile (for stats only: h-index, i10, total cites) ----
 profile <- NULL
@@ -634,21 +640,43 @@ fetch_myncbi <- function(url, max_pages = 20) {
     acc <- list()
     seen_pmids <- character(0)
 
+    log_path <- "_pubmed_fetch.log"
+    log_msg <- function(...) {
+      cat(format(Sys.time()), " ", ..., "\n",
+          sep = "", file = log_path, append = TRUE)
+    }
+    cat("---- new fetch ", format(Sys.time()), " ----\n",
+        file = log_path, append = TRUE)
+    log_msg("base_url = ", base_url)
+
     for (p in seq_len(max_pages)) {
       page_url <- paste0(base_url, "?page=", p)
-      page <- rvest::read_html(page_url)
+      log_msg("fetching: ", page_url)
+      page <- tryCatch(rvest::read_html(page_url),
+                       error = function(e) {
+                         log_msg("  read_html error: ", conditionMessage(e))
+                         NULL
+                       })
+      if (is.null(page)) break
+
       df   <- parse_page(page)
+      n_raw <- if (is.null(df)) 0L else nrow(df)
+      log_msg("  parsed ", n_raw, " citations from page ", p)
       if (is.null(df) || nrow(df) == 0) break
 
       new_rows <- df[!df$pmid %in% seen_pmids, , drop = FALSE]
-      if (nrow(new_rows) == 0) break   # same page coming back → we're done
+      log_msg("  ", nrow(new_rows), " new (not duplicates)")
+      if (nrow(new_rows) == 0) break
 
       acc[[length(acc) + 1]] <- new_rows
       seen_pmids <- c(seen_pmids, new_rows$pmid)
 
-      # Partial page means we've hit the end
-      if (nrow(df) < 50) break
+      if (nrow(df) < 50) {
+        log_msg("  partial page (<50), stopping")
+        break
+      }
     }
+    log_msg("MyNCBI total collected: ", length(seen_pmids))
 
     if (length(acc) == 0) return(NULL)
     df <- do.call(rbind, acc)
@@ -661,15 +689,30 @@ fetch_myncbi <- function(url, max_pages = 20) {
   })
 }
 
-# --- Method 2: rentrez PubMed search (fallback) ---
-fetch_rentrez <- function(author_term = "Hawken S[Author]",
-                          aff_terms = c("Ottawa", "OHRI", "ICES"),
-                          retmax = 500) {
+# --- Method 2: rentrez PubMed search ---
+# Now the PRIMARY source: MyNCBI uses JS-based pagination so a non-headless
+# scraper can't get past page 1.
+# Query strategy: match on ORCID (cleanest) OR on author name + Ottawa-area
+# affiliations (catches pre-ORCID-adoption papers, ~pre-2015).
+fetch_rentrez <- function(orcid = "0000-0002-3341-9022",
+                          author_term = "Hawken S[Author]",
+                          aff_terms = c("Ottawa", "OHRI",
+                                        "Institute for Clinical Evaluative Sciences",
+                                        "ICES",
+                                        "CHEO",
+                                        "Children's Hospital of Eastern Ontario"),
+                          retmax = 1000) {
   tryCatch({
     aff <- paste0("(",
                   paste(sprintf("%s[Affiliation]", aff_terms), collapse = " OR "),
                   ")")
-    query <- paste(author_term, "AND", aff)
+    aff_clause <- paste0("(", author_term, " AND ", aff, ")")
+
+    if (!is.null(orcid) && nzchar(orcid)) {
+      query <- paste0("(", orcid, "[AUID] OR ", aff_clause, ")")
+    } else {
+      query <- aff_clause
+    }
 
     sres <- rentrez::entrez_search(db = "pubmed", term = query, retmax = retmax)
     if (length(sres$ids) == 0) return(NULL)
@@ -749,12 +792,14 @@ fetch_rentrez <- function(author_term = "Hawken S[Author]",
 }
 
 # --- Execute with fallback chain ---
-pubmed_pubs <- fetch_myncbi(myncbi_url)
-pubmed_source <- if (!is.null(pubmed_pubs)) "MyNCBI" else NA_character_
+# rentrez is primary (MyNCBI scraping is broken — see fetch_myncbi comment).
+# fetch_myncbi is kept defined in case NCBI ever returns to server-side paging.
+pubmed_pubs <- fetch_rentrez()
+pubmed_source <- if (!is.null(pubmed_pubs)) "PubMed (rentrez)" else NA_character_
 
 if (is.null(pubmed_pubs)) {
-  pubmed_pubs <- fetch_rentrez()
-  if (!is.null(pubmed_pubs)) pubmed_source <- "PubMed (rentrez)"
+  pubmed_pubs <- fetch_myncbi(myncbi_url)
+  if (!is.null(pubmed_pubs)) pubmed_source <- "MyNCBI"
 }
 
 if (!is.null(pubmed_pubs) && nrow(pubmed_pubs) > 0) {
