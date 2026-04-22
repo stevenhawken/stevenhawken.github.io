@@ -72,10 +72,6 @@ if (!is.null(links)) {
   if (length(link_parts) > 0) cat(paste(link_parts, collapse = " | "), "\n\n")
 }
 
-# Download PDF button
-cat("<div style='margin: 20px 0;'>")
-cat("<a href='shawken_CV.pdf' class='btn btn-primary' style='display: inline-block; padding: 10px 20px; background-color: #0066cc; color: white; text-decoration: none; border-radius: 4px;'>Download PDF</a>")
-cat("</div>\n\n")
 ```
 
 ## Education
@@ -700,7 +696,10 @@ fetch_rentrez <- function(orcid = "0000-0002-3341-9022",
                                         "Institute for Clinical Evaluative Sciences",
                                         "ICES",
                                         "CHEO",
-                                        "Children's Hospital of Eastern Ontario"),
+                                        "Children's Hospital of Eastern Ontario",
+                                        "McMaster University",
+                                        "Hamilton Health Sciences",
+                                        "Population Health Research Institute"),
                           retmax = 1000) {
   tryCatch({
     aff <- paste0("(",
@@ -791,6 +790,65 @@ fetch_rentrez <- function(orcid = "0000-0002-3341-9022",
   })
 }
 
+# --- Method 3: fetch metadata for an explicit PMID list ---
+# Used to pull in papers the auto-search misses (older Lancet papers, etc.).
+fetch_pmids <- function(pmids) {
+  pmids <- as.character(pmids)
+  pmids <- pmids[nzchar(pmids)]
+  if (length(pmids) == 0) return(NULL)
+  tryCatch({
+    log_msg("fetching ", length(pmids), " explicit PMIDs from extra_pmids")
+    id_chunks <- split(pmids, ceiling(seq_along(pmids) / 100))
+    xml_docs <- lapply(id_chunks, function(ids) {
+      raw <- rentrez::entrez_fetch(db = "pubmed", id = ids,
+                                   rettype = "xml", parsed = FALSE)
+      xml2::read_xml(raw)
+    })
+    parse_article <- function(art) {
+      gx <- function(xp) {
+        n <- xml2::xml_find_first(art, xp)
+        if (inherits(n, "xml_missing")) "" else xml2::xml_text(n)
+      }
+      pmid    <- gx(".//PMID")
+      title   <- gx(".//ArticleTitle")
+      journal <- gx(".//Journal/Title")
+      year    <- gx(".//JournalIssue/PubDate/Year")
+      if (!nzchar(year)) year <- substr(gx(".//JournalIssue/PubDate/MedlineDate"), 1, 4)
+      volume  <- gx(".//JournalIssue/Volume")
+      issue   <- gx(".//JournalIssue/Issue")
+      pages   <- gx(".//Pagination/MedlinePgn")
+      authors_nodes <- xml2::xml_find_all(art, ".//AuthorList/Author")
+      authors <- vapply(authors_nodes, function(a) {
+        last <- xml2::xml_text(xml2::xml_find_first(a, "LastName"))
+        init <- xml2::xml_text(xml2::xml_find_first(a, "Initials"))
+        if (is.na(last)) {
+          coll <- xml2::xml_text(xml2::xml_find_first(a, "CollectiveName"))
+          if (is.na(coll)) "" else coll
+        } else paste0(last, if (!is.na(init) && nzchar(init)) paste0(" ", init))
+      }, character(1))
+      authors <- paste(authors[nzchar(authors)], collapse = ", ")
+      date <- year; vip <- ""
+      if (nzchar(volume)) vip <- volume
+      if (nzchar(issue))  vip <- paste0(vip, "(", issue, ")")
+      if (nzchar(pages))  vip <- paste0(vip, ":", pages)
+      if (nzchar(vip))    date <- paste0(date, ";", vip)
+      data.frame(authors = authors, title = title, journal = journal,
+                 date = date, pmid = pmid,
+                 year = suppressWarnings(as.integer(substr(year, 1, 4))),
+                 stringsAsFactors = FALSE)
+    }
+    rows <- list()
+    for (doc in xml_docs) {
+      arts <- xml2::xml_find_all(doc, ".//PubmedArticle")
+      for (a in arts) rows[[length(rows) + 1]] <- parse_article(a)
+    }
+    if (length(rows) == 0) return(NULL)
+    df <- do.call(rbind, rows); df$year <- NULL; df
+  }, error = function(e) {
+    log_msg("fetch_pmids error: ", conditionMessage(e)); NULL
+  })
+}
+
 # --- Execute with fallback chain ---
 # rentrez is primary (MyNCBI scraping is broken — see fetch_myncbi comment).
 # fetch_myncbi is kept defined in case NCBI ever returns to server-side paging.
@@ -800,6 +858,34 @@ pubmed_source <- if (!is.null(pubmed_pubs)) "PubMed (rentrez)" else NA_character
 if (is.null(pubmed_pubs)) {
   pubmed_pubs <- fetch_myncbi(myncbi_url)
   if (!is.null(pubmed_pubs)) pubmed_source <- "MyNCBI"
+}
+
+# --- Merge in extra_pmids and apply exclude_pmids ---
+extra <- fetch_pmids(cv_data$extra_pmids)
+if (!is.null(extra) && nrow(extra) > 0) {
+  if (is.null(pubmed_pubs)) {
+    pubmed_pubs <- extra
+  } else {
+    extra <- extra[!extra$pmid %in% pubmed_pubs$pmid, , drop = FALSE]
+    if (nrow(extra) > 0) pubmed_pubs <- rbind(pubmed_pubs, extra)
+  }
+  log_msg("merged ", nrow(extra), " new papers from extra_pmids")
+}
+
+if (!is.null(pubmed_pubs) && length(cv_data$exclude_pmids) > 0) {
+  before <- nrow(pubmed_pubs)
+  pubmed_pubs <- pubmed_pubs[
+    !pubmed_pubs$pmid %in% as.character(cv_data$exclude_pmids), , drop = FALSE]
+  log_msg("excluded ", before - nrow(pubmed_pubs), " from exclude_pmids")
+}
+
+# Re-sort by year desc after merging
+if (!is.null(pubmed_pubs) && nrow(pubmed_pubs) > 0) {
+  yr <- suppressWarnings(as.integer(regmatches(
+    pubmed_pubs$date, regexpr("\\d{4}", pubmed_pubs$date))))
+  if (length(yr) == nrow(pubmed_pubs)) {
+    pubmed_pubs <- pubmed_pubs[order(-yr, pubmed_pubs$title), ]
+  }
 }
 
 if (!is.null(pubmed_pubs) && nrow(pubmed_pubs) > 0) {

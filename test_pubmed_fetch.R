@@ -110,7 +110,10 @@ fetch_rentrez <- function(orcid = "0000-0002-3341-9022",
                                         "Institute for Clinical Evaluative Sciences",
                                         "ICES",
                                         "CHEO",
-                                        "Children's Hospital of Eastern Ontario"),
+                                        "Children's Hospital of Eastern Ontario",
+                                        "McMaster University",
+                                        "Hamilton Health Sciences",
+                                        "Population Health Research Institute"),
                           retmax = 1000) {
   tryCatch({
     aff <- paste0("(", paste(sprintf("%s[Affiliation]", aff_terms), collapse = " OR "), ")")

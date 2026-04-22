@@ -12,6 +12,17 @@ personal:
     orcid: "https://orcid.org/0000-0002-3341-9022"
     github: "https://github.com/stevenhawken"
 
+# PMIDs to FORCE INCLUDE in the publication list, in addition to whatever the
+# automatic ORCID + affiliation rentrez query finds. Use this for older papers
+# (pre-ORCID, ~pre-2015) where you didn't list an Ottawa-area affiliation, or
+# for any paper the auto-search misses. Just paste the bare PMID number.
+# Example: - 15234567   # Hawken et al, Lancet, 2004 (pre-ORCID, U of Guelph)
+extra_pmids: []
+
+# PMIDs to EXCLUDE from the publication list (e.g. another "Hawken S" author
+# whose paper got swept in by the affiliation filter, or duplicates).
+exclude_pmids: []
+
 education:
   - year: 2014
     degree: "Ph.D. Epidemiology"
