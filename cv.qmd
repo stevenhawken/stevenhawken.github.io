@@ -17,6 +17,9 @@ suppressPackageStartupMessages({
   library(scholar)
   library(dplyr)
   library(stringr)
+  library(rvest)
+  library(xml2)
+  library(rentrez)
 })
 
 # Read CV data from YAML file
@@ -540,31 +543,207 @@ if (!is.null(invited) && length(invited) > 0) {
 #| warning: false
 #| message: false
 
-# Try to get publications from Google Scholar with caching
-cache_file <- "_pub_cache.rds"
-pubs <- NULL
+# ---- Google Scholar profile (for stats only: h-index, i10, total cites) ----
 profile <- NULL
-
-tryCatch({
-  # Attempt to fetch from Google Scholar
-  pubs <- scholar::get_publications("aTyysxgAAAAJ")
-  if (!is.null(pubs) && nrow(pubs) > 0) {
-    pubs <- pubs[order(-pubs$year, pubs$title), ]
-    saveRDS(pubs, cache_file)
-  }
-}, error = function(e) {
-  # Fall back to cache if available
-  if (file.exists(cache_file)) {
-    pubs <<- readRDS(cache_file)
-  }
-})
-
-# Get profile for h-index and total citations
 tryCatch({
   profile <- scholar::get_profile("aTyysxgAAAAJ")
 }, error = function(e) {
   profile <- NULL
 })
+
+# ---- Peer-reviewed publications: MyNCBI scrape -> rentrez -> RDS cache ----
+pubmed_cache_file <- "_pubmed_cache.rds"
+myncbi_url <- cv_data$personal$links$pubmed
+
+# Normalised columns for downstream display:
+#   authors, title, journal, date, pmid
+empty_pubs <- data.frame(
+  authors = character(), title = character(), journal = character(),
+  date = character(), pmid = character(), stringsAsFactors = FALSE
+)
+
+# --- Method 1: scrape MyNCBI public bibliography ---
+# Each citation is a <div class="citation"> containing:
+#   .authors, <a href="/pubmed/PMID/">title</a>, .source (journal),
+#   .pubdate, .volume, .issue, .doi, .pmid, plus
+#   <input class="citation-check" pmid="..."> with the PMID as an attribute.
+fetch_myncbi <- function(url) {
+  # Ask MyNCBI for a large page so we don't have to paginate.
+  sep <- if (grepl("\\?", url)) "&" else "?"
+  paged_url <- paste0(url, sep, "pageSize=500")
+
+  safe_text <- function(node) {
+    if (inherits(node, "xml_missing")) return("")
+    txt <- rvest::html_text2(node)
+    if (is.null(txt) || is.na(txt)) "" else txt
+  }
+
+  tryCatch({
+    page <- tryCatch(rvest::read_html(paged_url),
+                     error = function(e) rvest::read_html(url))
+
+    items <- page %>% rvest::html_elements("div.citation")
+    if (length(items) == 0) return(NULL)
+
+    rows <- lapply(items, function(item) {
+      docsum <- rvest::html_element(item, "div.ncbi-docsum")
+      if (inherits(docsum, "xml_missing")) docsum <- item
+
+      authors <- safe_text(rvest::html_element(docsum, ".authors"))
+      authors <- sub("\\.\\s*$", "", trimws(authors))
+
+      title_node <- rvest::html_element(docsum, "a[href*='/pubmed/']")
+      title <- trimws(safe_text(title_node))
+
+      journal <- trimws(safe_text(rvest::html_element(docsum, ".source")))
+      pubdate <- sub(";\\s*$", "", trimws(safe_text(
+        rvest::html_element(docsum, ".pubdate"))))
+      volume  <- trimws(safe_text(rvest::html_element(docsum, ".volume")))
+      issue   <- trimws(safe_text(rvest::html_element(docsum, ".issue")))
+
+      date <- pubdate
+      if (nzchar(volume)) date <- paste0(date, ";", volume)
+      if (nzchar(issue))  date <- paste0(date, issue)
+      date <- trimws(date)
+
+      # PMID: try the citation-check input's pmid attr, then .pmid span, then href
+      pmid <- ""
+      check <- rvest::html_element(item, "input.citation-check")
+      if (!inherits(check, "xml_missing")) {
+        attr_val <- rvest::html_attr(check, "pmid")
+        if (!is.null(attr_val) && !is.na(attr_val)) pmid <- attr_val
+      }
+      if (!nzchar(pmid)) {
+        ptxt <- safe_text(rvest::html_element(docsum, ".pmid"))
+        m <- regmatches(ptxt, regexpr("\\d+", ptxt))
+        if (length(m)) pmid <- m
+      }
+      if (!nzchar(pmid) && !inherits(title_node, "xml_missing")) {
+        href <- rvest::html_attr(title_node, "href")
+        if (!is.null(href) && !is.na(href)) {
+          m <- regmatches(href, regexpr("\\d+", href))
+          if (length(m)) pmid <- m
+        }
+      }
+
+      data.frame(authors = authors, title = title, journal = journal,
+                 date = date, pmid = pmid, stringsAsFactors = FALSE)
+    })
+
+    df <- do.call(rbind, rows)
+    df <- df[nchar(df$title) > 0 & nchar(df$pmid) > 0, , drop = FALSE]
+    if (nrow(df) == 0) return(NULL)
+    df
+  }, error = function(e) {
+    message("MyNCBI scrape failed: ", conditionMessage(e))
+    NULL
+  })
+}
+
+# --- Method 2: rentrez PubMed search (fallback) ---
+fetch_rentrez <- function(author_term = "Hawken S[Author]",
+                          aff_terms = c("Ottawa", "OHRI", "ICES"),
+                          retmax = 500) {
+  tryCatch({
+    aff <- paste0("(",
+                  paste(sprintf("%s[Affiliation]", aff_terms), collapse = " OR "),
+                  ")")
+    query <- paste(author_term, "AND", aff)
+
+    sres <- rentrez::entrez_search(db = "pubmed", term = query, retmax = retmax)
+    if (length(sres$ids) == 0) return(NULL)
+
+    # Fetch in batches of 100 to be polite.
+    # NB: parsed = TRUE would return an XMLInternalDocument from the old {XML}
+    # package, which xml2's functions don't recognise. Fetch as text and
+    # reparse with xml2 so the rest of the code can use xml_find_*.
+    id_chunks <- split(sres$ids, ceiling(seq_along(sres$ids) / 100))
+    xml_docs <- lapply(id_chunks, function(ids) {
+      raw <- rentrez::entrez_fetch(db = "pubmed", id = ids,
+                                   rettype = "xml", parsed = FALSE)
+      xml2::read_xml(raw)
+    })
+
+    parse_article <- function(art) {
+      gx <- function(xp) {
+        n <- xml2::xml_find_first(art, xp)
+        if (inherits(n, "xml_missing")) "" else xml2::xml_text(n)
+      }
+      pmid    <- gx(".//PMID")
+      title   <- gx(".//ArticleTitle")
+      journal <- gx(".//Journal/Title")
+      year    <- gx(".//JournalIssue/PubDate/Year")
+      if (!nzchar(year)) {
+        md <- gx(".//JournalIssue/PubDate/MedlineDate")
+        year <- substr(md, 1, 4)
+      }
+      volume <- gx(".//JournalIssue/Volume")
+      issue  <- gx(".//JournalIssue/Issue")
+      pages  <- gx(".//Pagination/MedlinePgn")
+
+      authors_nodes <- xml2::xml_find_all(art, ".//AuthorList/Author")
+      authors <- vapply(authors_nodes, function(a) {
+        last <- xml2::xml_text(xml2::xml_find_first(a, "LastName"))
+        init <- xml2::xml_text(xml2::xml_find_first(a, "Initials"))
+        if (is.na(last)) {
+          coll <- xml2::xml_text(xml2::xml_find_first(a, "CollectiveName"))
+          if (is.na(coll)) "" else coll
+        } else {
+          paste0(last, if (!is.na(init) && nzchar(init)) paste0(" ", init))
+        }
+      }, character(1))
+      authors <- paste(authors[nzchar(authors)], collapse = ", ")
+
+      date <- year
+      vip <- ""
+      if (nzchar(volume)) vip <- volume
+      if (nzchar(issue))  vip <- paste0(vip, "(", issue, ")")
+      if (nzchar(pages))  vip <- paste0(vip, ":", pages)
+      if (nzchar(vip))    date <- paste0(date, ";", vip)
+
+      data.frame(
+        authors = authors, title = title, journal = journal,
+        date = date, pmid = pmid,
+        year = suppressWarnings(as.integer(substr(year, 1, 4))),
+        stringsAsFactors = FALSE
+      )
+    }
+
+    all_rows <- list()
+    for (doc in xml_docs) {
+      arts <- xml2::xml_find_all(doc, ".//PubmedArticle")
+      for (a in arts) all_rows[[length(all_rows) + 1]] <- parse_article(a)
+    }
+    df <- do.call(rbind, all_rows)
+    if (is.null(df) || nrow(df) == 0) return(NULL)
+
+    # Most recent first
+    df <- df[order(-df$year, df$title), ]
+    df$year <- NULL
+    df
+  }, error = function(e) {
+    message("rentrez fetch failed: ", conditionMessage(e))
+    NULL
+  })
+}
+
+# --- Execute with fallback chain ---
+pubmed_pubs <- fetch_myncbi(myncbi_url)
+pubmed_source <- if (!is.null(pubmed_pubs)) "MyNCBI" else NA_character_
+
+if (is.null(pubmed_pubs)) {
+  pubmed_pubs <- fetch_rentrez()
+  if (!is.null(pubmed_pubs)) pubmed_source <- "PubMed (rentrez)"
+}
+
+if (!is.null(pubmed_pubs) && nrow(pubmed_pubs) > 0) {
+  saveRDS(pubmed_pubs, pubmed_cache_file)
+} else if (file.exists(pubmed_cache_file)) {
+  pubmed_pubs <- readRDS(pubmed_cache_file)
+  pubmed_source <- "cached"
+}
+
+if (is.null(pubmed_pubs)) pubmed_pubs <- empty_pubs
 ```
 
 ```{r}
@@ -573,9 +752,9 @@ tryCatch({
 #| warning: false
 #| message: false
 
-# Display profile statistics if available
+# Display profile statistics from Google Scholar if available
 if (!is.null(profile)) {
-  cat("**Profile Statistics:**\n\n")
+  cat("**Profile Statistics (Google Scholar):**\n\n")
   cat("- **H-Index**: ", profile$h_index, "\n")
   cat("- **i10-Index**: ", profile$i10_index, "\n")
   cat("- **Total Citations**: ", profile$total_cites, "\n\n")
@@ -583,46 +762,46 @@ if (!is.null(profile)) {
 
 cat("### Peer-Reviewed Publications\n\n")
 
-# Display publications from Google Scholar if available
-if (!is.null(pubs) && nrow(pubs) > 0) {
-  # Group by year
-  years <- sort(unique(pubs$year), decreasing = TRUE)
+# Display publications from PubMed, numbered 1..N (no year grouping)
+if (!is.null(pubmed_pubs) && nrow(pubmed_pubs) > 0) {
+  cat("*Source: ", pubmed_source, " — ", nrow(pubmed_pubs),
+      " publication(s).*\n\n", sep = "")
 
-  pub_counter <- 1
-  total_pubs <- nrow(pubs)
+  for (i in seq_len(nrow(pubmed_pubs))) {
+    pub <- pubmed_pubs[i, ]
 
-  for (yr in years) {
-    pubs_this_year <- pubs[pubs$year == yr, ]
-    cat("#### ", yr, " (", nrow(pubs_this_year), " publication(s))\n\n")
+    authors <- bold_author(pub$authors)
+    title   <- pub$title
+    journal <- pub$journal
+    date    <- pub$date
+    pmid    <- pub$pmid
 
-    for (i in 1:nrow(pubs_this_year)) {
-      pub <- pubs_this_year[i, ]
+    # Build Vancouver-ish citation: Authors. Title. *Journal*. Date. [PMID: #####]
+    citation <- paste0(i, ". ", authors, ". ")
 
-      # Format authors (bold Steven Hawken if present)
-      authors <- bold_author(pub$author)
-
-      # Build citation
-      citation <- paste0(
-        total_pubs - pub_counter + 1, ". ",
-        authors, ". ",
-        "**", pub$title, "**. ",
-        "*", pub$journal, "*"
-      )
-
-      if (!is.na(pub$year) && pub$year != "") {
-        citation <- paste0(citation, ", ", pub$year)
-      }
-
-      citation <- paste0(citation, ".")
-
-      # Add citation count if available
-      if (!is.na(pub$cites) && pub$cites > 0) {
-        citation <- paste0(citation, " [", pub$cites, " citations]")
-      }
-
-      cat(citation, "\n\n")
-      pub_counter <- pub_counter + 1
+    if (!is.null(title) && !is.na(title) && nzchar(title)) {
+      # Strip trailing period from title if present, then add our own.
+      title_clean <- sub("\\.\\s*$", "", title)
+      citation <- paste0(citation, "**", title_clean, "**. ")
     }
+
+    if (!is.null(journal) && !is.na(journal) && nzchar(journal)) {
+      citation <- paste0(citation, "*", journal, "*. ")
+    }
+
+    if (!is.null(date) && !is.na(date) && nzchar(date)) {
+      date_clean <- sub("\\.\\s*$", "", date)
+      citation <- paste0(citation, date_clean, ". ")
+    }
+
+    if (!is.null(pmid) && !is.na(pmid) && nzchar(pmid)) {
+      citation <- paste0(
+        citation,
+        sprintf("[PMID: [%s](https://pubmed.ncbi.nlm.nih.gov/%s/)]", pmid, pmid)
+      )
+    }
+
+    cat(citation, "\n\n")
   }
 } else {
   cat("*Publications not currently available. Please check again later.*\n\n")

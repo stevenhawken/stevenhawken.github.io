@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Mobile properties --><meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Stylesheets --><link rel="stylesheet" href="/myncbi/static/CACHE/css/output.df144cf669ed.css" type="text/css">
+<link rel="stylesheet" href="/myncbi/static/CACHE/css/output.59ab869b825f.css" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/myncbi/static/CACHE/css/output.fb34a1108701.css" type="text/css">
+<title>My Bibliography - NCBI</title>
+<!-- Favicons --><link rel="shortcut icon" type="image/ico" href="https://cdn.ncbi.nlm.nih.gov/coreutils/nwds/img/favicons/favicon.ico">
+<link rel="icon" type="image/png" href="https://cdn.ncbi.nlm.nih.gov/coreutils/nwds/img/favicons/favicon.png">
+<!-- 192x192, as recommended for Android
+  http://updates.html5rocks.com/2014/11/Support-for-theme-color-in-Chrome-39-for-Android
+  --><link rel="icon" type="image/png" sizes="192x192" href="https://cdn.ncbi.nlm.nih.gov/coreutils/nwds/img/favicons/favicon-192.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices --><link rel="apple-touch-icon-precomposed" href="https://cdn.ncbi.nlm.nih.gov/coreutils/nwds/img/favicons/favicon-57.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini --><link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://cdn.ncbi.nlm.nih.gov/coreutils/nwds/img/favicons/favicon-72.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch --><link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://cdn.ncbi.nlm.nih.gov/coreutils/nwds/img/favicons/favicon-114.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation --><link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://cdn.ncbi.nlm.nih.gov/coreutils/nwds/img/favicons/favicon-144.png">
+<meta name="robots" content="index, follow">
+<!-- Logging params: Pinger defaults --><meta name="ncbi_app" content="django-bibliography">
+<meta name="ncbi_pdid" content="public-view">
+<meta name="ncbi_phid" content="1D34D8CDEDC3B695000046029755B382.1.m_6">
+<meta name="ncbi_page" content="home">
+<meta name="ncbi_op" content="page_view">
+<meta name="description" content="Django project django-bibliography">
+</head>
+<body>
+
+  
+    <a class="usa-skipnav" href="#main_content">Skip to main page content</a>
+
+    <!-- ========== BEGIN HEADER ========== -->
+<section class="usa-banner"><div class="usa-accordion">
+    <header class="usa-banner-header"><div class="usa-grid usa-banner-inner">
+        <img src="https://cdn.ncbi.nlm.nih.gov/coreutils/uswds/img/favicons/favicon-57.png" alt="U.S. flag"><p>An official website of the United States government</p>
+        <button class="usa-accordion-button usa-banner-button" aria-expanded="false" aria-controls="gov-banner-top">
+          <span class="usa-banner-button-text">Here's how you know</span>
+        </button>
+      </div>
+    </header><div class="usa-banner-content usa-grid usa-accordion-content" id="gov-banner-top">
+      <div class="usa-banner-guidance-gov usa-width-one-half">
+        <img class="usa-banner-icon usa-media_block-img" src="https://cdn.ncbi.nlm.nih.gov/coreutils/uswds/img/icon-dot-gov.svg" alt="Dot gov"><div class="usa-media_block-body">
+          <p>
+            <strong>The .gov means it’s official.</strong>
+            <br>
+            Federal government websites often end in .gov or .mil. Before
+            sharing sensitive information, make sure you’re on a federal
+            government site.
+          </p>
+        </div>
+      </div>
+      <div class="usa-banner-guidance-ssl usa-width-one-half">
+        <img class="usa-banner-icon usa-media_block-img" src="https://cdn.ncbi.nlm.nih.gov/coreutils/uswds/img/icon-https.svg" alt="Https"><div class="usa-media_block-body">
+          <p>
+            <strong>The site is secure.</strong>
+            <br>
+            The <strong>https://</strong> ensures that you are connecting to the
+            official website and that any information you provide is encrypted
+            and transmitted securely.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><div class="usa-overlay"></div>
+<header class="ncbi-header" role="banner" data-section="Header"><div class="usa-grid">
+		<div class="usa-width-one-whole">
+
+            <div class="ncbi-header__logo">
+                <a href="https://www.ncbi.nlm.nih.gov/" class="logo" aria-label="NCBI Logo" data-ga-action="click_image" data-ga-label="NIH NLM Logo">
+                  <img src="https://cdn.ncbi.nlm.nih.gov/coreutils/nwds/img/logos/AgencyLogo.svg" alt="NIH NLM Logo"></a>
+            </div>
+
+			<div class="ncbi-header__account">
+				<a id="account_login" href="https://account.ncbi.nlm.nih.gov" class="usa-button header-button" style="display:none" data-ga-action="open_menu" data-ga-label="account_menu">Log in</a>
+				<button id="account_info" class="header-button" style="display:none" aria-controls="account_popup">
+					<span class="fa fa-user" aria-hidden="true"></span>
+					<span class="username desktop-only" aria-hidden="true" id="uname_short"></span>
+					<span class="sr-only">Show account info</span>
+				</button>
+			</div>
+
+			<div class="ncbi-popup-anchor">
+				<div class="ncbi-popup account-popup" id="account_popup" aria-hidden="true">
+					<div class="ncbi-popup-head">
+						<button class="ncbi-close-button" data-ga-action="close_menu" data-ga-label="account_menu"><span class="fa fa-times"></span><span class="usa-sr-only">Close</span></button>
+						<h4>Account</h4>
+					</div>
+					<div class="account-user-info">
+						Logged in as:<br><b><span class="username" id="uname_long">username</span></b>
+					</div>
+					<div class="account-links">
+						<ul class="usa-unstyled-list">
+<li><a id="account_myncbi" href="/myncbi/" class="set-base-url" data-ga-action="click_menu_item" data-ga-label="account_myncbi">Dashboard</a></li>
+							<li><a id="account_pubs" href="/myncbi/collections/bibliography/" class="set-base-url" data-ga-action="click_menu_item" data-ga-label="account_pubs">Publications</a></li>
+							<li><a id="account_settings" href="/account/settings/" class="set-base-url" data-ga-action="click_menu_item" data-ga-label="account_settings">Account settings</a></li>
+							<li><a id="account_logout" href="/account/signout/" class="set-base-url" data-ga-action="click_menu_item" data-ga-label="account_logout">Log out</a></li>
+						</ul>
+</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</header><div role="navigation" aria-label="access keys">
+<a id="nws_header_accesskey_0" href="https://www.ncbi.nlm.nih.gov/guide/browsers/#ncbi_accesskeys" class="usa-sr-only" accesskey="0" tabindex="-1">Access keys</a>
+<a id="nws_header_accesskey_1" href="https://www.ncbi.nlm.nih.gov" class="usa-sr-only" accesskey="1" tabindex="-1">NCBI Homepage</a>
+<a id="nws_header_accesskey_2" href="/myncbi/" class="set-base-url usa-sr-only" accesskey="2" tabindex="-1">MyNCBI Homepage</a>
+<a id="nws_header_accesskey_3" href="#maincontent" class="usa-sr-only" accesskey="3" tabindex="-1">Main Content</a>
+<a id="nws_header_accesskey_4" href="#" class="usa-sr-only" accesskey="4" tabindex="-1">Main Navigation</a>
+</div>
+<section data-section="Alerts"><div class="ncbi-alerts-placeholder"></div>
+</section><!-- ========== END HEADER ========== --><nav id="topnav"><div class="usa-grid">
+      <h1>My Bibliography</h1>
+      <h2 id="bibname"><a href="./">Steven Hawken's Bibliography</a></h2>
+      
+    </div>
+    </nav><main id="main_content" accesskey="3"><section class="usa-section usa-grid"><div class="usa-width-one-half">
+      <ul class="breadcrumbs ncbi-inline-list-alt">
+<li><a href="https://www.ncbi.nlm.nih.gov/myncbi/"><i class="fa fa-caret-left" aria-hidden="true"></i> MyNCBI</a></li>
+      </ul>
+</div>
+
+    <div class="pager usa-width-one-half">
+      <form method="get" action="" id="pager">
+    <ul class="usa-unstyled-list">
+<li>Page
+        
+          <input name="page" id="pager-page-input" class="currentPage" type="text" value="1" alt="current page" data-section="navigation" data-ga-action="pagination" data-ga-label="page_number"><label for="pager-page-input">Enter page number</label>
+        of <span class="totalPages">4</span>
+</li>
+     
+      <li>
+        <a class="firstPage disabled" onclick="return false;" href="?page=1" alt="first page" data-section="navigation" data-ga-action="pagination" data-ga-label="first">
+          <i class="fa fa-caret-left" aria-hidden="true"></i><i class="fa fa-caret-left" aria-hidden="true"></i><span>First page</span></a>
+      </li>
+      <li>
+        
+            <a class="prevPage disabled" onclick="return false;" href="?page=1" alt="previous page" data-section="navigation" data-ga-action="pagination" data-ga-label="previous">
+        
+        <i class="fa fa-caret-left" aria-hidden="true"></i>
+        <span>Previous page</span></a>
+      </li>
+      <li>
+        
+            <a class="nextPage enabled" href="?page=2" alt="next page" data-section="navigation" data-ga-action="pagination" data-ga-label="next">
+        
+        <i class="fa fa-caret-right" aria-hidden="true"></i>
+        <span>Next page</span></a>
+      </li>
+      <li>
+        <a class="lastPage enabled" href="?page=4" alt="last page" data-section="navigation" data-ga-action="pagination" data-ga-label="last">
+          <i class="fa fa-caret-right" aria-hidden="true"></i><i class="fa fa-caret-right" aria-hidden="true"></i><span>Last page</span></a>
+      </li>
+    
+    </ul>
+</form>
+
+    </div>
+
+    <nav id="toolbar" class="usa-width-one-whole"><ul class="drop">
+<li class="dropdown manage">
+          <a><span class="msg">make a selection to</span>
+             <i class="fa fa-cog" aria-hidden="true"></i> Manage citations</a>
+          <ul class="dropdown-menu">
+<li><a id="copy-to-collection" href="#">Copy to collection</a></li>
+            <li><a id="download-medline" href="#">Export file (MEDLINE)</a></li>
+            <li><a id="download-pmids" href="#">Export file (PMID)</a></li>
+          </ul>
+<div id="select-citation-alert" class="hidden">
+            Please select citations to manage.
+          </div>
+        </li>
+      </ul></nav><div class="warning-box usa-width-one-whole" style="display:none">
+      
+    </div>
+
+    <div id="selectbar" class="usa-width-one-whole">
+      <div class="usa-width-one-half">
+      
+        <form>
+          <input id="select-all" type="checkbox" name="select-all" value="select-all"><label for="select-all"><span>select all</span></label>
+        </form>
+
+        <!-- only appears when something is selected. remove hidden class. -->
+        <span class="div-selected-count hidden"><span id="select-count">0</span> selected</span>
+        <ul class="select-all-menu ncbi-inline-list-alt hidden">
+<li><a class="select-all-link" href="#">select all 164</a></li>
+          <li><a class="clear-all-link" href="#">clear all</a></li>
+        </ul>
+</div>
+
+      <div id="sort-menu" class="usa-width-one-half">
+        <span id="total-count">164 citations,</span> Sort by
+        <ul class="drop">
+<li class="dropdown">
+            <a><span data-hide="n2o">newest to oldest</span></a>
+            <ul class="dropdown-menu">
+<li class="ru"><a href="./?sortby=updDate&amp;sdirection=descending">recently updated</a></li>
+             <li class="n2o"><a href="./?sortby=pubDate&amp;sdirection=descending">newest to oldest</a></li>
+             <li class="o2n"><a href="./?sortby=pubDate&amp;sdirection=ascending">oldest to newest</a></li>
+             <li class="aa"><a href="./?sortby=author&amp;sdirection=ascending">author <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></a></li>
+             <li class="ad"><a href="./?sortby=author&amp;sdirection=descending">author <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></a></li>
+            </ul>
+</li>
+        </ul>
+</div>
+    </div>
+
+    <div class="citations usa-width-one-whole">
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit95278785" type="checkbox" name="cit95278785" value="95278785" class="citation-check" pmid="41384379"><label for="cit95278785">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Roy DC, Wang TF, Mallick R, Burger D, Carrier M, Wells P, Hawken S.
+        </span><a href="/pubmed/41384379/" target="_blank" rel="noopener">
+                Venous thromboembolism and bleeding in cancer patients: role of inflammatory and cardiac biomarkers.
+            </a><span class="source">Eur Heart J</span>.
+        
+        
+            <span class="pubdate">2026 Apr 22;</span><span class="volume">47</span><span class="issue">(16)</span><span class="pages">:1933-1945</span><span>. </span><span class="doi">doi: 10.1093/eurheartj/ehaf1002. </span><span class="pmid">PubMed PMID:
+            41384379</span><span class="pmcid">; PubMed Central PMCID:
+                PMC13099213</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit99905521" type="checkbox" name="cit99905521" value="99905521" class="citation-check" pmid="41947567"><label for="cit99905521">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Yin C, Scott M, Talarico R, Hakimjavadi R, Kierulf J, Webber C, Hawken S, Moledina A, Manuel DG, Hsu AT, Tanuseputro P, Fung C, Kaasalainen S, Molnar F, Shamon S, Daniel I M, Kobewka D.
+        </span><a href="/pubmed/41947567/" target="_blank" rel="noopener">
+                Permanent cognitive or physical impairment after transfer from long-term care to acute care: a retrospective cohort study.
+            </a><span class="source">Age Ageing</span>.
+        
+        
+            <span class="pubdate">2026 Apr 4;</span><span class="volume">55</span><span class="issue">(4)</span><span>. </span><span class="doi">doi: 10.1093/ageing/afag066. </span><span class="pmid">PubMed PMID:
+            41947567</span><span class="pmcid">; PubMed Central PMCID:
+                PMC13058271</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit99905522" type="checkbox" name="cit99905522" value="99905522" class="citation-check" pmid="41922810"><label for="cit99905522">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Kendzerska T, Blades K, Mallampalli MP, Povitz M, Vyuha R, Mackenzie C, Gershon AS, Ayas NT, Kaminska M, Fenton ME, McBrien KA, Hawken S, Saymeh M, Ratycz DC, Owens RL, Pendharkar SR.
+        </span><a href="/pubmed/41922810/" target="_blank" rel="noopener">
+                Impact of Philips device recall on adults with obstructive sleep apnea treated with PAP therapy: Results of a cross-national patient survey.
+            </a><span class="source">J Clin Sleep Med</span>.
+        
+        
+            <span class="pubdate">2026 Apr 1;</span><span class="volume">22</span><span class="issue">(1)</span><span>. </span><span class="doi">doi: 10.1007/s44470-026-00045-3. </span><span class="pmid">PubMed PMID:
+            41922810</span><span class="pmcid">; PubMed Central PMCID:
+                PMC13043932</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit99905523" type="checkbox" name="cit99905523" value="99905523" class="citation-check" pmid="41914371"><label for="cit99905523">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Foley KA, Buchan SA, McNally D, Dimitris M, Swayze S, Kwong JC, Hawken S, Saxena S, Hargreaves D, Fitzpatrick T.
+        </span><a href="/pubmed/41914371/" target="_blank" rel="noopener">
+                The Effectiveness of the Palivizumab Programme in Reducing the Risk of Paediatric Asthma: A Population-Based Study in Ontario, Canada.
+            </a><span class="source">Paediatr Perinat Epidemiol</span>.
+        
+        
+            <span class="pubdate">2026 Mar 31;</span><span>. </span><span class="doi">doi: 10.1111/ppe.70141. </span><span class="pubstatus">[Epub ahead of print] </span><span class="pmid">PubMed PMID:
+            41914371</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit99905524" type="checkbox" name="cit99905524" value="99905524" class="citation-check" pmid="41912604"><label for="cit99905524">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Dick K, Kaczmarek E, Miguel OX, Bowie AC, Ducharme R, Dingwall-Harvey ALJ, Hawken S, Armour CM, Walker MC.
+        </span><a href="/pubmed/41912604/" target="_blank" rel="noopener">
+                MetaCAM as an ensemble-based class activation mapping framework improves model explainability.
+            </a><span class="source">Sci Rep</span>.
+        
+        
+            <span class="pubdate">2026 Mar 30;</span><span class="volume">16</span><span class="issue">(1)</span><span>. </span><span class="doi">doi: 10.1038/s41598-026-42879-0. </span><span class="pmid">PubMed PMID:
+            41912604</span><span class="pmcid">; PubMed Central PMCID:
+                PMC13039914</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit99905525" type="checkbox" name="cit99905525" value="99905525" class="citation-check" pmid="41865806"><label for="cit99905525">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Bjerre LM, Smith G, Catley C, Halil R, Ramsay T, Cahir C, Ryan C, Farrell B, Thavorn K, Hawken S, Gillespie U, Manuel DG, Abdulaziz KE.
+        </span><a href="/pubmed/41865806/" target="_blank" rel="noopener">
+                Association between potentially inappropriate prescribing and adverse patient outcomes using codified STOPP-START and Beers criteria in large, routinely collected population health datasets: a retrospective cohort study.
+            </a><span class="source">J Clin Epidemiol</span>.
+        
+        
+            <span class="pubdate">2026 Mar 20;</span><span class="pages">:112246</span><span>. </span><span class="doi">doi: 10.1016/j.jclinepi.2026.112246. </span><span class="pubstatus">[Epub ahead of print] </span><span class="pmid">PubMed PMID:
+            41865806</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit99905526" type="checkbox" name="cit99905526" value="99905526" class="citation-check" pmid="41722649"><label for="cit99905526">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Werlang A, Scremin Souza SC, Sabri E, Hawken S, Gomes M.
+        </span><a href="/pubmed/41722649/" target="_blank" rel="noopener">
+                Evaluation of a Canadian-Adapted Modified Early Obstetric Warning System (Can-MEOWS): A Quality Improvement Initiative.
+            </a><span class="source">J Obstet Gynaecol Can</span>.
+        
+        
+            <span class="pubdate">2026 Apr;</span><span class="volume">48</span><span class="issue">(4)</span><span class="pages">:103248</span><span>. </span><span class="doi">doi: 10.1016/j.jogc.2026.103248. </span><span class="pubstatus">Epub 2026 Feb 19. </span><span class="pmid">PubMed PMID:
+            41722649</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit95278782" type="checkbox" name="cit95278782" value="95278782" class="citation-check" pmid="41564154"><label for="cit95278782">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Chang AL, Reiss JD, Culos A, Becker M, Mayo JA, Marić I, De Francesco D, Phongpreecha T, Espinosa CA, Mataraso SJ, Berson E, Kim Y, Xue L, Xie F, Shu CH, Fallahzadeh R, Bidoki NH, Xenochristou M, Zhang M, Profit J, Lee HC, Gaudillière B, Angst MS, Hawken S, Wilson K, Stevenson DK, Shaw GM, Sylvester KG, Aghaeepour N.
+        </span><a href="/pubmed/41564154/" target="_blank" rel="noopener">
+                Quantitative assessment of neonatal health using dried blood spot metabolite profiles and deep learning.
+            </a><span class="source">Sci Transl Med</span>.
+        
+        
+            <span class="pubdate">2026 Jan 21;</span><span class="volume">18</span><span class="issue">(833)</span><span class="pages">:eadv4942</span><span>. </span><span class="doi">doi: 10.1126/scitranslmed.adv4942. </span><span class="pubstatus">Epub 2026 Jan 21. </span><span class="pmid">PubMed PMID:
+            41564154</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit95278783" type="checkbox" name="cit95278783" value="95278783" class="citation-check" pmid="41449787"><label for="cit95278783">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            de Bruin O, Maisonneuve E, Hurley E, Nordeng HME, Bérard A, Sheehy O, Kaul P, Shinde MU, Cosgrove A, Lyons JG, Messenger-Jones E, Kempner ME, Toh S, Hua W, Hernández-Muñoz JJ, Sahin L, Cesta CE, Hägg D, Gini R, Paoletti O, Poblador-Plou B, Jordan S, Thayer D, Rodríguez-Bernal CL, Sánchez-Sáez F, Lassalle R, Bernard MA, Alsina E, Ahmadizar F, Favre G, Panchaud A, Bloemenkamp KWM, Plueschke K, de Vries C, Siiskonen SJ, Sturkenboom MCJM, CONSIGN Collaboration Group.
+        </span><a href="/pubmed/41449787/" target="_blank" rel="noopener">
+                Medications Used Among Nonhospitalized Pregnant Women With COVID-19: A Prospective Individual Patient Data Meta-Analysis in Europe and North America.
+            </a><span class="source">Pharmacoepidemiol Drug Saf</span>.
+        
+        
+            <span class="pubdate">2026 Jan;</span><span class="volume">35</span><span class="issue">(1)</span><span class="pages">:e70303</span><span>. </span><span class="doi">doi: 10.1002/pds.70303. </span><span class="pmid">PubMed PMID:
+            41449787</span><span class="pmcid">; PubMed Central PMCID:
+                PMC12741507</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit95278784" type="checkbox" name="cit95278784" value="95278784" class="citation-check" pmid="41392882"><label for="cit95278784">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            de Bruin O, Maisonneuve E, Hurley E, Nordeng HME, Bérard A, Sheehy O, Kaul P, Shinde MU, Cosgrove A, Lyons JG, Messenger-Jones E, Kempner ME, Toh S, Hua W, Hernández-Muñoz JJ, Sahin L, Cesta CE, Hägg D, Gini R, Paoletti O, Poblador-Plou B, Jordan S, Rodríguez-Bernal CL, Sánchez-Sáez F, Lassalle R, Bernard MA, Ahmadizar F, Favre G, Panchaud A, Bloemenkamp KWM, Plueschke K, de Vries C, Siiskonen SJ, Sturkenboom MCJM, CONSIGN Collaboration Group.
+        </span><a href="/pubmed/41392882/" target="_blank" rel="noopener">
+                Adverse outcomes among pregnant women with COVID-19 according to hospitalization status: A prospective individual participant data meta-analysis in Europe and North America.
+            </a><span class="source">Int J Gynaecol Obstet</span>.
+        
+        
+            <span class="pubdate">2025 Dec 15;</span><span>. </span><span class="doi">doi: 10.1002/ijgo.70694. </span><span class="pubstatus">[Epub ahead of print] </span><span class="pubtype">Review. </span><span class="pmid">PubMed PMID:
+            41392882</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit95278786" type="checkbox" name="cit95278786" value="95278786" class="citation-check" pmid="41337586"><label for="cit95278786">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Marić I, Mahzarnia A, Mujuru HA, Chimhini G, Saha SK, Shameem Hassan M, Otieno NA, Hawken S, Wilson K, Shen X, Lancaster S, Wong RJ, Reiss JD, Kerner J, Snyder MP, Hay W, Shaw GM, Stevenson DK, Ward V, Darmstadt GL.
+        </span><a href="/pubmed/41337586/" target="_blank" rel="noopener">
+                Maternal lipidomic signatures of preterm and small-for-gestational-age newborn infants in low- and middle-income countries.
+            </a><span class="source">Sci Adv</span>.
+        
+        
+            <span class="pubdate">2025 Dec 5;</span><span class="volume">11</span><span class="issue">(49)</span><span class="pages">:eadu9145</span><span>. </span><span class="doi">doi: 10.1126/sciadv.adu9145. </span><span class="pubstatus">Epub 2025 Dec 3. </span><span class="pmid">PubMed PMID:
+            41337586</span><span class="pmcid">; PubMed Central PMCID:
+                PMC12674114</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit95278787" type="checkbox" name="cit95278787" value="95278787" class="citation-check" pmid="41319957"><label for="cit95278787">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Humber J, Dick K, Ducharme R, Ramlawi S, Sugati F, Hawken S, Walker MC.
+        </span><a href="/pubmed/41319957/" target="_blank" rel="noopener">
+                A Comparison of Patient Information Sheets for Gestational Diabetes Created by Large Language Models and Health Professionals.
+            </a><span class="source">J Obstet Gynaecol Can</span>.
+        
+        
+            <span class="pubdate">2026 Jan;</span><span class="volume">48</span><span class="issue">(1)</span><span class="pages">:103194</span><span>. </span><span class="doi">doi: 10.1016/j.jogc.2025.103194. </span><span class="pubstatus">Epub 2025 Nov 29. </span><span class="pmid">PubMed PMID:
+            41319957</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit95278788" type="checkbox" name="cit95278788" value="95278788" class="citation-check" pmid="41311311"><label for="cit95278788">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Sheehy O, Tchuente V, Eltonsy S, Hawken S, Kaul P, Walker M, Pugliese M, Dragan R, Savu A, Leal L, Morin L, Malhamé I, Pana R, Bérard A.
+        </span><a href="/pubmed/41311311/" target="_blank" rel="noopener">
+                Late Pregnancy Antiseizure Medication Exposure and Offspring Neurodevelopmental Risk: A Multi-Child Cohort Study.
+            </a><span class="source">Ann Neurol</span>.
+        
+        
+            <span class="pubdate">2026 Mar;</span><span class="volume">99</span><span class="issue">(3)</span><span class="pages">:761-776</span><span>. </span><span class="doi">doi: 10.1002/ana.78084. </span><span class="pubstatus">Epub 2025 Nov 28. </span><span class="pmid">PubMed PMID:
+            41311311</span><span class="pmcid">; PubMed Central PMCID:
+                PMC12954148</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit95278789" type="checkbox" name="cit95278789" value="95278789" class="citation-check" pmid="41302700"><label for="cit95278789">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Bérard A, Sheehy O, Kaul P, Eltonsy S, Walker M, Hawken S, Bernatsky S, Pugliese M, Barrett O, Savu A, Dragan R.
+        </span><a href="/pubmed/41302700/" target="_blank" rel="noopener">
+                COVID-19 Infections Still Occur: How Do Pregnant and Non-Pregnant Individuals Compare? A Study from the Canadian Mother-Child Initiative on Drug Safety in Pregnancy (CAMCCO).
+            </a><span class="source">Int J Environ Res Public Health</span>.
+        
+        
+            <span class="pubdate">2025 Nov 20;</span><span class="volume">22</span><span class="issue">(11)</span><span>. </span><span class="doi">doi: 10.3390/ijerph22111756. </span><span class="pmid">PubMed PMID:
+            41302700</span><span class="pmcid">; PubMed Central PMCID:
+                PMC12652618</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit91188940" type="checkbox" name="cit91188940" value="91188940" class="citation-check" pmid="41121011"><label for="cit91188940">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Wong K, Ducharme R, Murphy MSQ, Clarke AE, Brophy J, Hawken S, El-Chaâr D.
+        </span><a href="/pubmed/41121011/" target="_blank" rel="noopener">
+                SARS-CoV-2 infection in pregnancy and infant outcomes in the first year of life: a retrospective cohort study.
+            </a><span class="source">BMC Pediatr</span>.
+        
+        
+            <span class="pubdate">2025 Oct 21;</span><span class="volume">25</span><span class="issue">(1)</span><span class="pages">:842</span><span>. </span><span class="doi">doi: 10.1186/s12887-025-06128-z. </span><span class="pmid">PubMed PMID:
+            41121011</span><span class="pmcid">; PubMed Central PMCID:
+                PMC12542431</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit91188939" type="checkbox" name="cit91188939" value="91188939" class="citation-check" pmid="41129149"><label for="cit91188939">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Cloutier M, Yu C, Talarico R, Hawken S, Chen H, Weichenthal S, Cakmak S, Hebbern C, Gunz A, van Donkelaar A, Martin RV, Côté JN, Lavigne É.
+        </span><a href="/pubmed/41129149/" target="_blank" rel="noopener">
+                Prenatal Exposure to Fine Particulate Matter Components and Autism Risk in Childhood.
+            </a><span class="source">JAMA Netw Open</span>.
+        
+        
+            <span class="pubdate">2025 Oct 1;</span><span class="volume">8</span><span class="issue">(10)</span><span class="pages">:e2538882</span><span>. </span><span class="doi">doi: 10.1001/jamanetworkopen.2025.38882. </span><span class="pmid">PubMed PMID:
+            41129149</span><span class="pmcid">; PubMed Central PMCID:
+                PMC12550638</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit91188941" type="checkbox" name="cit91188941" value="91188941" class="citation-check" pmid="41023127"><label for="cit91188941">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Dick K, Kaczmarek E, Ducharme R, Bowie AC, Dingwall-Harvey ALJ, Howley H, Hawken S, Walker MC, Armour CM.
+        </span><a href="/pubmed/41023127/" target="_blank" rel="noopener">
+                Correction: Transformer-based deep learning ensemble framework predicts autism spectrum disorder using health administrative and birth registry data.
+            </a><span class="source">Sci Rep</span>.
+        
+        
+            <span class="pubdate">2025 Sep 29;</span><span class="volume">15</span><span class="issue">(1)</span><span class="pages">:33322</span><span>. </span><span class="doi">doi: 10.1038/s41598-025-19777-y. </span><span class="pmid">PubMed PMID:
+            41023127</span><span class="pmcid">; PubMed Central PMCID:
+                PMC12480944</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit91188942" type="checkbox" name="cit91188942" value="91188942" class="citation-check" pmid="40901071"><label for="cit91188942">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Yuskiv N, Saad A, Potter BK, Stockler-Ipsiroglu S, Mitchell JJ, Hawken S, Tingley K, Pugliese M, Lamoureux M, Chow AJ, Kronick JB, Wilson K, Feigenbaum A, Goobie S, Inbar-Feigenberg M, Little J, Mercimek-Andrews S, Pender A, Prasad C, Schulze A, Trakadis Y, Ho G, Vallance H, Austin V, Vandersteen A, Yu AC, Rockman-Greenberg C, Mhanni AA, Chakraborty P.
+        </span><a href="/pubmed/40901071/" target="_blank" rel="noopener">
+                Metabolic Control and Frequency of Clinical Monitoring Among Canadian Children With Phenylalanine Hydroxylase Deficiency: A Retrospective Cohort Study.
+            </a><span class="source">JIMD Rep</span>.
+        
+        
+            <span class="pubdate">2025 Sep;</span><span class="volume">66</span><span class="issue">(5)</span><span class="pages">:e70042</span><span>. </span><span class="doi">doi: 10.1002/jmd2.70042. </span><span class="pubstatus">eCollection 2025 Sep. </span><span class="pmid">PubMed PMID:
+            40901071</span><span class="pmcid">; PubMed Central PMCID:
+                PMC12401562</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit91188943" type="checkbox" name="cit91188943" value="91188943" class="citation-check" pmid="40825511"><label for="cit91188943">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Bjerre LM, Catley C, Smith G, Halil R, Ramsay T, Cahir C, Ryan C, Farrell B, Thavorn K, Hawken S, Gillespie U, Manuel DG, Abdulaziz KE.
+        </span><a href="/pubmed/40825511/" target="_blank" rel="noopener">
+                Prevalence and predictors of potentially inappropriate prescribing using codified STOPP-START and Beers criteria: a retrospective cohort study in Ontario's older population.
+            </a><span class="source">J Clin Epidemiol</span>.
+        
+        
+            <span class="pubdate">2025 Nov;</span><span class="volume">187</span><span class="pages">:111932</span><span>. </span><span class="doi">doi: 10.1016/j.jclinepi.2025.111932. </span><span class="pubstatus">Epub 2025 Aug 16. </span><span class="pmid">PubMed PMID:
+            40825511</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit91188944" type="checkbox" name="cit91188944" value="91188944" class="citation-check" pmid="40802616"><label for="cit91188944">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Li W, Turcotte L, Hsu AT, Talarico R, Qureshi D, Webber C, Hawken S, Tanuseputro P, Manuel DG, Huyer G.
+        </span><a href="/pubmed/40802616/" target="_blank" rel="noopener">
+                Correction: Derivation and validation of an algorithm to predict transitions from community to residential long-term care among persons with dementia-A retrospective cohort study.
+            </a><span class="source">PLOS Digit Health</span>.
+        
+        
+            <span class="pubdate">2025 Aug;</span><span class="volume">4</span><span class="issue">(8)</span><span class="pages">:e0000987</span><span>. </span><span class="doi">doi: 10.1371/journal.pdig.0000987. </span><span class="pubstatus">eCollection 2025 Aug. </span><span class="pmid">PubMed PMID:
+            40802616</span><span class="pmcid">; PubMed Central PMCID:
+                PMC12349011</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit86261928" type="checkbox" name="cit86261928" value="86261928" class="citation-check" pmid="40503714"><label for="cit86261928">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            McIntyre L, Fergusson D, McArdle T, English S, Cook DJ, Fox-Robichaud AE, Martin C, Marshall J, Pugliese M, Menon K, Thavorn K, Graham ID, Hawken S, Iyengar A, Kyeremanteng K, Saginur R, Seely AJE, Stiell IG, Bainbridge D, Weijer C, Taljaard M, Canadian Critical Care Trials Group.
+        </span><a href="/pubmed/40503714/" target="_blank" rel="noopener">
+                A Crossover Trial of Hospital-Wide Lactated Ringer's Solution versus Normal Saline.
+            </a><span class="source">N Engl J Med</span>.
+        
+        
+            <span class="pubdate">2025 Aug 14;</span><span class="volume">393</span><span class="issue">(7)</span><span class="pages">:660-670</span><span>. </span><span class="doi">doi: 10.1056/NEJMoa2416761. </span><span class="pubstatus">Epub 2025 Jun 12. </span><span class="pmid">PubMed PMID:
+            40503714</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit86261929" type="checkbox" name="cit86261929" value="86261929" class="citation-check" pmid="40404591"><label for="cit86261929">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Serhan M, Nilormi A, Ntacyabukura B, Atkinson K, Ducharme R, Hawken S, Ramsay T, Ang J, Wilson K.
+        </span><a href="/pubmed/40404591/" target="_blank" rel="noopener">
+                Coverage disparities and delayed immunization: Assessing 12-month vaccination completion in Canadian children using data from a digital immunization platform.
+            </a><span class="source">Hum Vaccin Immunother</span>.
+        
+        
+            <span class="pubdate">2025 Dec;</span><span class="volume">21</span><span class="issue">(1)</span><span class="pages">:2506286</span><span>. </span><span class="doi">doi: 10.1080/21645515.2025.2506286. </span><span class="pubstatus">Epub 2025 May 22. </span><span class="pmid">PubMed PMID:
+            40404591</span><span class="pmcid">; PubMed Central PMCID:
+                PMC12101581</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit86261930" type="checkbox" name="cit86261930" value="86261930" class="citation-check" pmid="40383186"><label for="cit86261930">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Kendzerska T, Talarico R, Povitz M, Blades K, Mackenzie C, Gershon AS, Ayas NT, Kaminska M, Fenton M, McBrien KA, Hawken S, Ratycz D, Owens RL, Pendharkar SR.
+        </span><a href="/pubmed/40383186/" target="_blank" rel="noopener">
+                Association Between a Recalled Positive Airway Pressure Device and Obstructive Lung Disease: A Province-Based Study.
+            </a><span class="source">Chest</span>.
+        
+        
+            <span class="pubdate">2025 Nov;</span><span class="volume">168</span><span class="issue">(5)</span><span class="pages">:1231-1247</span><span>. </span><span class="doi">doi: 10.1016/j.chest.2025.05.008. </span><span class="pubstatus">Epub 2025 May 16. </span><span class="pmid">PubMed PMID:
+            40383186</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit86261931" type="checkbox" name="cit86261931" value="86261931" class="citation-check" pmid="40280264"><label for="cit86261931">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Ahmed A, Hawken S, Gunz A, Talarico R, Yu C, Messerlian C, Zhang Y, Chen H, Weichenthal S, van Donkelaar A, Martin RV, Lavigne É.
+        </span><a href="/pubmed/40280264/" target="_blank" rel="noopener">
+                Prenatal exposure to fine particulate matter composition and risk of cerebral palsy: A population-based retrospective cohort study in Ontario, Canada.
+            </a><span class="source">Environ Pollut</span>.
+        
+        
+            <span class="pubdate">2025 Jun 15;</span><span class="volume">375</span><span class="pages">:126302</span><span>. </span><span class="doi">doi: 10.1016/j.envpol.2025.126302. </span><span class="pubstatus">Epub 2025 Apr 23. </span><span class="pmid">PubMed PMID:
+            40280264</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit86261933" type="checkbox" name="cit86261933" value="86261933" class="citation-check" pmid="40195371"><label for="cit86261933">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Dick K, Kaczmarek E, Ducharme R, Bowie AC, Dingwall-Harvey ALJ, Howley H, Hawken S, Walker MC, Armour CM.
+        </span><a href="/pubmed/40195371/" target="_blank" rel="noopener">
+                Transformer-based deep learning ensemble framework predicts autism spectrum disorder using health administrative and birth registry data.
+            </a><span class="source">Sci Rep</span>.
+        
+        
+            <span class="pubdate">2025 Apr 7;</span><span class="volume">15</span><span class="issue">(1)</span><span class="pages">:11816</span><span>. </span><span class="doi">doi: 10.1038/s41598-025-90216-8. </span><span class="pmid">PubMed PMID:
+            40195371</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11977201</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit86261932" type="checkbox" name="cit86261932" value="86261932" class="citation-check" pmid="40207298"><label for="cit86261932">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Ahmed A, Hawken S, Gunz A, Talarico R, Yu C, Chen H, Villeneuve PJ, Lavigne É.
+        </span><a href="/pubmed/40207298/" target="_blank" rel="noopener">
+                Associations of prenatal exposure to residential greenspace and active living environments with cerebral palsy: A population-based cohort study in Ontario, Canada.
+            </a><span class="source">Environ Epidemiol</span>.
+        
+        
+            <span class="pubdate">2025 Apr;</span><span class="volume">9</span><span class="issue">(2)</span><span class="pages">:e379</span><span>. </span><span class="doi">doi: 10.1097/EE9.0000000000000379. </span><span class="pubstatus">eCollection 2025 Apr. </span><span class="pmid">PubMed PMID:
+            40207298</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11981423</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit86261934" type="checkbox" name="cit86261934" value="86261934" class="citation-check" pmid="40051595"><label for="cit86261934">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Roberts RL, Imsirovic H, Talarico R, Li W, Carrington A, Patel K, Manuel D, Tanuseputro P, Hawken S, Webber C.
+        </span><a href="/pubmed/40051595/" target="_blank" rel="noopener">
+                Laboratory Test Use and Values in the Last Year of Life-a Matched Cohort Design.
+            </a><span class="source">Can Geriatr J</span>.
+        
+        
+            <span class="pubdate">2025 Mar;</span><span class="volume">28</span><span class="issue">(1)</span><span class="pages">:73-86</span><span>. </span><span class="doi">doi: 10.5770/cgj.28.808. </span><span class="pubstatus">eCollection 2025 Mar. </span><span class="pmid">PubMed PMID:
+            40051595</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11882211</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit82761944" type="checkbox" name="cit82761944" value="82761944" class="citation-check" pmid="39833005"><label for="cit82761944">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Yin CY, Scott MM, Talarico R, Hakimjavadi R, Kierulf J, Webber C, Hawken S, Moledina A, Manuel D, Hsu A, Tanuseputro P, Fung C, Kaasalainen S, Molnar F, Shamon S, McIsaac DI, Kobewka D.
+        </span><a href="/pubmed/39833005/" target="_blank" rel="noopener">
+                Transfer from long-term care to acute care and risk of new permanent cognitive or physical disability among long-term care residents in Canada: protocol for a retrospective cohort study.
+            </a><span class="source">BMJ Open</span>.
+        
+        
+            <span class="pubdate">2025 Jan 20;</span><span class="volume">15</span><span class="issue">(1)</span><span class="pages">:e086932</span><span>. </span><span class="doi">doi: 10.1136/bmjopen-2024-086932. </span><span class="pmid">PubMed PMID:
+            39833005</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11749797</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit82761945" type="checkbox" name="cit82761945" value="82761945" class="citation-check" pmid="39788774"><label for="cit82761945">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Yin CY, Talarico R, Scott MM, Hakimjavadi R, Kierulf J, Webber C, Hawken S, Moledina A, Manuel DG, Hsu A, Tanuseputro P, Fung C, Kaasalainen S, Molnar F, Shamon S, Ronksley PE, McIsaac DI, Kobewka D.
+        </span><a href="/pubmed/39788774/" target="_blank" rel="noopener">
+                Development of a predictive model for loss of functional and cognitive abilities in long-term care home residents: a protocol.
+            </a><span class="source">BMJ Open</span>.
+        
+        
+            <span class="pubdate">2025 Jan 9;</span><span class="volume">15</span><span class="issue">(1)</span><span class="pages">:e086935</span><span>. </span><span class="doi">doi: 10.1136/bmjopen-2024-086935. </span><span class="pmid">PubMed PMID:
+            39788774</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11751803</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit81975165" type="checkbox" name="cit81975165" value="81975165" class="citation-check" pmid="39498867"><label for="cit81975165">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Guo Y, Souza SCS, Bruce L, Luo R, El-Chaâr D, Gaudet LM, Muldoon K, Hawken S, Dunn SI, Rennicks White R, Dingwall-Harvey ALJ, Walker MC, Wen SW, Corsi DJ.
+        </span><a href="/pubmed/39498867/" target="_blank" rel="noopener">
+                Risk related to gestational weight loss among individuals with obesity: a population-based cohort study.
+            </a><span class="source">Obesity (Silver Spring)</span>.
+        
+        
+            <span class="pubdate">2024 Dec;</span><span class="volume">32</span><span class="issue">(12)</span><span class="pages">:2376-2387</span><span>. </span><span class="doi">doi: 10.1002/oby.24143. </span><span class="pubstatus">Epub 2024 Nov 5. </span><span class="pmid">PubMed PMID:
+            39498867</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11589539</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit81975169" type="checkbox" name="cit81975169" value="81975169" class="citation-check" pmid="39147408"><label for="cit81975169">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Kendzerska T, Pendharkar SR, Talarico R, Blades K, Mackenzie C, Gershon AS, Ayas N, Kaminska M, Fenton M, McBrien KA, Hawken S, Ratycz D, Lishchenko V, Owens RL, Povitz M.
+        </span><a href="/pubmed/39147408/" target="_blank" rel="noopener">
+                Association between a recalled positive airway pressure device and incident cancer: a population-based study.
+            </a><span class="source">Eur Respir J</span>.
+        
+        
+            <span class="pubdate">2024 Nov;</span><span class="volume">64</span><span class="issue">(5)</span><span>. </span><span class="doi">doi: 10.1183/13993003.00560-2024. </span><span class="pubstatus">Print 2024 Nov. </span><span class="pmid">PubMed PMID:
+            39147408</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit81975164" type="checkbox" name="cit81975164" value="81975164" class="citation-check" pmid="39717675"><label for="cit81975164">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Persaud S, Fitzgerald M, Hawken S, Tanuseputro P, Boucher L, Petrcich W, Wellman M, Webber C, Shoemaker E, Ducharme R, Dahrouge S, Myran D, Bayoumi AM, Wanigaratne S, Bloch G, Ponka D, Smith BT, Lofters A, Zygmunt A, MacLeod KK, Turcotte LA, Sander B, Howard M, Funnell S, Rayner J, Kitagawa K, Ibrahim S, Kendall CE.
+        </span><a href="/pubmed/39717675/" target="_blank" rel="noopener">
+                The association of combinations of social factors and SARs-CoV-2 infection: A retrospective population-based cohort study in Ontario, 2020-2021.
+            </a><span class="source">Dialogues Health</span>.
+        
+        
+            <span class="pubdate">2024 Dec;</span><span class="volume">5</span><span class="pages">:100197</span><span>. </span><span class="doi">doi: 10.1016/j.dialog.2024.100197. </span><span class="pubstatus">eCollection 2024 Dec. </span><span class="pmid">PubMed PMID:
+            39717675</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11664076</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit81975166" type="checkbox" name="cit81975166" value="81975166" class="citation-check" pmid="39423179"><label for="cit81975166">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Li W, Turcotte L, Hsu AT, Talarico R, Qureshi D, Webber C, Hawken S, Tanuseputro P, Manuel DG, Huyer G.
+        </span><a href="/pubmed/39423179/" target="_blank" rel="noopener">
+                Derivation and validation of an algorithm to predict transitions from community to residential long-term care among persons with dementia-A retrospective cohort study.
+            </a><span class="source">PLOS Digit Health</span>.
+        
+        
+            <span class="pubdate">2024 Oct;</span><span class="volume">3</span><span class="issue">(10)</span><span class="pages">:e0000441</span><span>. </span><span class="doi">doi: 10.1371/journal.pdig.0000441. </span><span class="pubstatus">eCollection 2024 Oct. </span><span class="pmid">PubMed PMID:
+            39423179</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11488705</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit81975167" type="checkbox" name="cit81975167" value="81975167" class="citation-check" pmid="39340082"><label for="cit81975167">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Hawken S, Wilson LA, Wilson K.
+        </span><a href="/pubmed/39340082/" target="_blank" rel="noopener">
+                Using Vaccine Safety Data to Demonstrate the Potential of Pooled Data Analysis.
+            </a><span class="source">Vaccines (Basel)</span>.
+        
+        
+            <span class="pubdate">2024 Sep 14;</span><span class="volume">12</span><span class="issue">(9)</span><span>. </span><span class="doi">doi: 10.3390/vaccines12091052. </span><span class="pmid">PubMed PMID:
+            39340082</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11436156</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit81975168" type="checkbox" name="cit81975168" value="81975168" class="citation-check" pmid="39242988"><label for="cit81975168">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Bellai-Dussault K, Dougan SD, Fell DB, Hawken S, Huang T, Venegas CL, Little J, Meng L, Okun N, Walker M, Armour CM, Potter BK.
+        </span><a href="/pubmed/39242988/" target="_blank" rel="noopener">
+                Pregnancies with 'double-positive' multiple marker screening results: a population-based study in Ontario, Canada.
+            </a><span class="source">BMC Pregnancy Childbirth</span>.
+        
+        
+            <span class="pubdate">2024 Sep 6;</span><span class="volume">24</span><span class="issue">(1)</span><span class="pages">:584</span><span>. </span><span class="doi">doi: 10.1186/s12884-024-06774-8. </span><span class="pmid">PubMed PMID:
+            39242988</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11380333</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit81975170" type="checkbox" name="cit81975170" value="81975170" class="citation-check" pmid="39034882"><label for="cit81975170">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Atkinson K, Ntacyabukura B, Hawken S, El-Khatib Z, Laflamme L, Wilson K.
+        </span><a href="/pubmed/39034882/" target="_blank" rel="noopener">
+                Parent and family characteristics associated with reported pediatric influenza vaccination in a sample of Canadian digital vaccination platform users. An exploratory, cross-sectional study in the 2018-2019 influenza season.
+            </a><span class="source">Hum Vaccin Immunother</span>.
+        
+        
+            <span class="pubdate">2024 Dec 31;</span><span class="volume">20</span><span class="issue">(1)</span><span class="pages">:2378580</span><span>. </span><span class="doi">doi: 10.1080/21645515.2024.2378580. </span><span class="pubstatus">Epub 2024 Jul 22. </span><span class="pmid">PubMed PMID:
+            39034882</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11789738</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit81975171" type="checkbox" name="cit81975171" value="81975171" class="citation-check" pmid="38889117"><label for="cit81975171">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Kaczmarek E, Miguel OX, Bowie AC, Ducharme R, Dingwall-Harvey ALJ, Hawken S, Armour CM, Walker MC, Dick K.
+        </span><a href="/pubmed/38889117/" target="_blank" rel="noopener">
+                CAManim: Animating end-to-end network activation maps.
+            </a><span class="source">PLoS One</span>.
+        
+        
+            <span class="pubdate">2024;</span><span class="volume">19</span><span class="issue">(6)</span><span class="pages">:e0296985</span><span>. </span><span class="doi">doi: 10.1371/journal.pone.0296985. </span><span class="pubstatus">eCollection 2024. </span><span class="pmid">PubMed PMID:
+            38889117</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11185468</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit75862620" type="checkbox" name="cit75862620" value="75862620" class="citation-check" pmid="38768631"><label for="cit75862620">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Roy DC, Wang TF, Lun R, Zahrai A, Mallick R, Burger D, Zitikyte G, Hawken S, Wells P.
+        </span><a href="/pubmed/38768631/" target="_blank" rel="noopener">
+                Circulating Blood Biomarkers and Risk of Venous Thromboembolism in Cancer Patients: A Systematic Review and Meta-Analysis.
+            </a><span class="source">Thromb Haemost</span>.
+        
+        
+            <span class="pubdate">2024 Dec;</span><span class="volume">124</span><span class="issue">(12)</span><span class="pages">:1117-1133</span><span>. </span><span class="doi">doi: 10.1055/a-2330-1371. </span><span class="pubstatus">Epub 2024 May 20. </span><span class="pmid">PubMed PMID:
+            38768631</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit75862619" type="checkbox" name="cit75862619" value="75862619" class="citation-check" pmid="38784593"><label for="cit75862619">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Collins E, Galipeau Y, Arnold C, Bhéreur A, Booth R, Buchan AC, Cooper C, Crawley AM, McCluskie PS, McGuinty M, Pelchat M, Rocheleau L, Saginur R, Gravel C, Hawken S, Langlois MA, Little J.
+        </span><a href="/pubmed/38784593/" target="_blank" rel="noopener">
+                Clinical and serological predictors of post COVID-19 condition-findings from a Canadian prospective cohort study.
+            </a><span class="source">Front Public Health</span>.
+        
+        
+            <span class="pubdate">2024;</span><span class="volume">12</span><span class="pages">:1276391</span><span>. </span><span class="doi">doi: 10.3389/fpubh.2024.1276391. </span><span class="pubstatus">eCollection 2024. </span><span class="pmid">PubMed PMID:
+            38784593</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11111987</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit75862877" type="checkbox" name="cit75862877" value="75862877" class="citation-check" pmid="38641713"><label for="cit75862877">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Miguel OX, Kaczmarek E, Lee I, Ducharme R, Dingwall-Harvey ALJ, Rennicks White R, Bonin B, Aviv RI, Hawken S, Armour CM, Dick K, Walker MC.
+        </span><a href="/pubmed/38641713/" target="_blank" rel="noopener">
+                Deep learning prediction of renal anomalies for prenatal ultrasound diagnosis.
+            </a><span class="source">Sci Rep</span>.
+        
+        
+            <span class="pubdate">2024 Apr 19;</span><span class="volume">14</span><span class="issue">(1)</span><span class="pages">:9013</span><span>. </span><span class="doi">doi: 10.1038/s41598-024-59248-4. </span><span class="pmid">PubMed PMID:
+            38641713</span><span class="pmcid">; PubMed Central PMCID:
+                PMC11031588</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit75862875" type="checkbox" name="cit75862875" value="75862875" class="citation-check" pmid="38705649"><label for="cit75862875">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Ward VC, Hawken S, Chakraborty P, Darmstadt GL, Wilson K.
+        </span><a href="/pubmed/38705649/" target="_blank" rel="noopener">
+                Estimating Gestational Age and Prediction of Preterm Birth Using Metabolomics Biomarkers.
+            </a><span class="source">Clin Perinatol</span>.
+        
+        
+            <span class="pubdate">2024 Jun;</span><span class="volume">51</span><span class="issue">(2)</span><span class="pages">:411-424</span><span>. </span><span class="doi">doi: 10.1016/j.clp.2024.02.012. </span><span class="pubstatus">Epub 2024 Apr 4. </span><span class="pubtype">Review. </span><span class="pmid">PubMed PMID:
+            38705649</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit75862876" type="checkbox" name="cit75862876" value="75862876" class="citation-check" pmid="38705642"><label for="cit75862876">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Ward VC, Lee AC, Hawken S, Otieno NA, Mujuru HA, Chimhini G, Wilson K, Darmstadt GL.
+        </span><a href="/pubmed/38705642/" target="_blank" rel="noopener">
+                Overview of the Global and US Burden of Preterm Birth.
+            </a><span class="source">Clin Perinatol</span>.
+        
+        
+            <span class="pubdate">2024 Jun;</span><span class="volume">51</span><span class="issue">(2)</span><span class="pages">:301-311</span><span>. </span><span class="doi">doi: 10.1016/j.clp.2024.02.015. </span><span class="pubstatus">Epub 2024 Apr 4. </span><span class="pubtype">Review. </span><span class="pmid">PubMed PMID:
+            38705642</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit75862878" type="checkbox" name="cit75862878" value="75862878" class="citation-check" pmid="38468303"><label for="cit75862878">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Zhu DT, Hawken S, Serhan M, Graves F, Smith J, Wilson K.
+        </span><a href="/pubmed/38468303/" target="_blank" rel="noopener">
+                Public attitudes towards COVID-19 vaccine mandates and vaccine certificates in Canada: a time series study.
+            </a><span class="source">Arch Public Health</span>.
+        
+        
+            <span class="pubdate">2024 Mar 11;</span><span class="volume">82</span><span class="issue">(1)</span><span class="pages">:32</span><span>. </span><span class="doi">doi: 10.1186/s13690-024-01259-8. </span><span class="pmid">PubMed PMID:
+            38468303</span><span class="pmcid">; PubMed Central PMCID:
+                PMC10926625</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit75862879" type="checkbox" name="cit75862879" value="75862879" class="citation-check" pmid="38438444"><label for="cit75862879">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Sheehy O, Eltonsy S, Hawken S, Walker M, Kaul P, Winquist B, Barrett O, Savu A, Dragan R, Pugliese M, Bernatsky S, Gorgui J, Bérard A.
+        </span><a href="/pubmed/38438444/" target="_blank" rel="noopener">
+                Health Canada advisory impacts on the prevalence of oral codeine use in the Pediatric Canadian population: comparative study across provinces.
+            </a><span class="source">Sci Rep</span>.
+        
+        
+            <span class="pubdate">2024 Mar 4;</span><span class="volume">14</span><span class="issue">(1)</span><span class="pages">:5370</span><span>. </span><span class="doi">doi: 10.1038/s41598-024-55758-3. </span><span class="pmid">PubMed PMID:
+            38438444</span><span class="pmcid">; PubMed Central PMCID:
+                PMC10912710</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit75862880" type="checkbox" name="cit75862880" value="75862880" class="citation-check" pmid="38291601"><label for="cit75862880">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Roy DC, Wang TF, Lun R, Zahrai A, Mallick R, Burger D, Zitikyte G, Hawken S, Wells P.
+        </span><a href="/pubmed/38291601/" target="_blank" rel="noopener">
+                Inherited thrombophilia gene mutations and risk of venous thromboembolism in patients with cancer: A systematic review and meta-analysis.
+            </a><span class="source">Am J Hematol</span>.
+        
+        
+            <span class="pubdate">2024 Apr;</span><span class="volume">99</span><span class="issue">(4)</span><span class="pages">:577-585</span><span>. </span><span class="doi">doi: 10.1002/ajh.27222. </span><span class="pubstatus">Epub 2024 Jan 30. </span><span class="pmid">PubMed PMID:
+            38291601</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit82762155" type="checkbox" name="cit82762155" value="82762155" class="citation-check" pmid="37964151"><label for="cit82762155">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Currie LM, Fell DB, Hawken S, Potter BK, Coyle D, Wen SW, Walker M, Gaudet L.
+        </span><a href="/pubmed/37964151/" target="_blank" rel="noopener">
+                Relationship Between Gestational Weight Gain and Health Service Utilization in Early Childhood: A Retrospective Cohort Study.
+            </a><span class="source">Matern Child Health J</span>.
+        
+        
+            <span class="pubdate">2024 Mar;</span><span class="volume">28</span><span class="issue">(3)</span><span class="pages">:426-430</span><span>. </span><span class="doi">doi: 10.1007/s10995-023-03796-0. </span><span class="pubstatus">Epub 2023 Nov 14. </span><span class="pmid">PubMed PMID:
+            37964151</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit82762154" type="checkbox" name="cit82762154" value="82762154" class="citation-check" pmid="37951574"><label for="cit82762154">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Dick K, Humber J, Ducharme R, Dingwall-Harvey A, Armour CM, Hawken S, Walker MC.
+        </span><a href="/pubmed/37951574/" target="_blank" rel="noopener">
+                The Transformative Potential of AI in Obstetrics and Gynaecology.
+            </a><span class="source">J Obstet Gynaecol Can</span>.
+        
+        
+            <span class="pubdate">2024 Mar;</span><span class="volume">46</span><span class="issue">(3)</span><span class="pages">:102277</span><span>. </span><span class="doi">doi: 10.1016/j.jogc.2023.102277. </span><span class="pubstatus">Epub 2023 Nov 10. </span><span class="pmid">PubMed PMID:
+            37951574</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit70278822" type="checkbox" name="cit70278822" value="70278822" class="citation-check" pmid="37833559"><label for="cit70278822">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Guo Y, Souza SCS, Bruce L, Luo R, El-Chaâr D, Gaudet LM, Muldoon K, Hawken S, Dunn SI, Dingwall-Harvey ALJ, Walker MC, Wen SW, Corsi DJ.
+        </span><a href="/pubmed/37833559/" target="_blank" rel="noopener">
+                Gestational weight loss and fetal growth in uncomplicated pregnancies among women with obesity: a population-based retrospective cohort study.
+            </a><span class="source">Int J Obes (Lond)</span>.
+        
+        
+            <span class="pubdate">2023 Dec;</span><span class="volume">47</span><span class="issue">(12)</span><span class="pages">:1269-1277</span><span>. </span><span class="doi">doi: 10.1038/s41366-023-01382-6. </span><span class="pubstatus">Epub 2023 Oct 13. </span><span class="pmid">PubMed PMID:
+            37833559</span><span class="pmcid">; PubMed Central PMCID:
+                PMC10663149</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit70278823" type="checkbox" name="cit70278823" value="70278823" class="citation-check" pmid="37801356"><label for="cit70278823">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Shaw JF, Ouyang Y, Fergusson DA, McArdle T, Martin C, Cook D, Graham ID, Hawken S, McCartney CJL, Menon K, Saginur R, Seely A, Stiell I, Fox-Robichaud A, English S, Marshall J, Thavorn K, Taljaard M, McIntyre LA, Canadian Critical Care Trials Group.
+        </span><a href="/pubmed/37801356/" target="_blank" rel="noopener">
+                A Hospital-Wide Open-Label Cluster Crossover Pragmatic Comparative Effectiveness Randomized Trial Comparing Normal Saline to Ringer's Lactate: Protocol and Statistical Analysis Plan of The FLUID Trial.
+            </a><span class="source">JMIR Res Protoc</span>.
+        
+        
+            <span class="pubdate">2023 Oct 6;</span><span class="volume">12</span><span class="pages">:e51783</span><span>. </span><span class="doi">doi: 10.2196/51783. </span><span class="pmid">PubMed PMID:
+            37801356</span><span class="pmcid">; PubMed Central PMCID:
+                PMC10589831</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+          
+
+
+<div class="citation-wrap">
+  <div class="citation">
+    <div class="align-left">
+        <input id="cit70278824" type="checkbox" name="cit70278824" value="70278824" class="citation-check" pmid="37536569"><label for="cit70278824">select</label>
+    </div>
+    <div class="ncbi-docsum">
+      <span class="authors">
+            Roy DC, Wang TF, Carrier M, Mallick R, Burger D, Hawken S, Wells PS.
+        </span><a href="/pubmed/37536569/" target="_blank" rel="noopener">
+                Thrombophilia gene mutations predict venous thromboembolism in ambulatory cancer patients receiving chemotherapy.
+            </a><span class="source">J Thromb Haemost</span>.
+        
+        
+            <span class="pubdate">2023 Nov;</span><span class="volume">21</span><span class="issue">(11)</span><span class="pages">:3184-3192</span><span>. </span><span class="doi">doi: 10.1016/j.jtha.2023.07.017. </span><span class="pubstatus">Epub 2023 Aug 2. </span><span class="pmid">PubMed PMID:
+            37536569</span><span>. </span>
+    </div>
+  </div>
+</div>
+
+
+      
+    </div>
+
+    <div id="download-dialog" class="dialog-placeholder"></div>
+
+    <div id="ctc-dialog" class="dialog-placeholder">
+      <div>What would you like to do?</div>
+
+      <ul>
+<li>
+          <input type="radio" name="col-old-new" id="col-old" value="old" checked><label for="col-old">Append to existing collection</label>
+        </li>
+        <li>
+          <input type="radio" name="col-old-new" id="col-new" value="new"><label for="col-new" id="lbl-col-new">Create a new collection</label>
+        </li>
+      </ul>
+<div class="option-details">
+        <div class="new-option option-div hidden">
+          <label for="col-new-name">Collection name:</label>
+          <input type="text" id="col-new-name">
+</div>
+        <div class="old-option option-div">
+          <label for="col-select">Choose a collection:</label>
+          <select id="col-select"></select>
+</div>
+      </div>
+
+      <div class="center">
+        <div class="message red hidden"></div>
+        <div class="message green hidden"></div>
+        <button class="btn-copy-collection">Copy</button>
+        <button class="btn-cancel-ctc">Cancel</button>
+      </div>
+
+      <div id="collections-pbar"><div></div></div>
+
+    </div>
+
+    <div class="pager">
+      <form method="get" action="" id="pager">
+    <ul class="usa-unstyled-list">
+<li>Page
+        
+          <input name="page" id="pager-page-input" class="currentPage" type="text" value="1" alt="current page" data-section="navigation" data-ga-action="pagination" data-ga-label="page_number"><label for="pager-page-input">Enter page number</label>
+        of <span class="totalPages">4</span>
+</li>
+     
+      <li>
+        <a class="firstPage disabled" onclick="return false;" href="?page=1" alt="first page" data-section="navigation" data-ga-action="pagination" data-ga-label="first">
+          <i class="fa fa-caret-left" aria-hidden="true"></i><i class="fa fa-caret-left" aria-hidden="true"></i><span>First page</span></a>
+      </li>
+      <li>
+        
+            <a class="prevPage disabled" onclick="return false;" href="?page=1" alt="previous page" data-section="navigation" data-ga-action="pagination" data-ga-label="previous">
+        
+        <i class="fa fa-caret-left" aria-hidden="true"></i>
+        <span>Previous page</span></a>
+      </li>
+      <li>
+        
+            <a class="nextPage enabled" href="?page=2" alt="next page" data-section="navigation" data-ga-action="pagination" data-ga-label="next">
+        
+        <i class="fa fa-caret-right" aria-hidden="true"></i>
+        <span>Next page</span></a>
+      </li>
+      <li>
+        <a class="lastPage enabled" href="?page=4" alt="last page" data-section="navigation" data-ga-action="pagination" data-ga-label="last">
+          <i class="fa fa-caret-right" aria-hidden="true"></i><i class="fa fa-caret-right" aria-hidden="true"></i><span>Last page</span></a>
+      </li>
+    
+    </ul>
+</form>
+
+    </div>
+
+    <form name="add-manual-citation" id="add-manual-citation">
+      <input type="hidden" name="csrfmiddlewaretoken" value="ywO24ediTZV8OEkgL0t1fOsnJHUeXgNqDe82WxSfvZdZAMfsgqt8oGyuHiBgDtPU"><input type="hidden" id="public-id" value="1bWW-W2c80pQz">
+</form>
+
+  </section></main><!-- ========== BEGIN FOOTER ========== --><footer><section class="icon-section"><div id="icon-section-header" class="icon-section_header">Follow NCBI</div>
+        <div class="grid-container container">
+          <div class="icon-section_container">
+            <a class="footer-icon" id="footer_twitter" href="https://twitter.com/ncbi" aria-label="Twitter">
+                <svg width="40" height="40" viewbox="0 0 40 37" fill="none" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title>
+<g id="twitterx1008"><path id="path1008" d="M6.06736 7L16.8778 20.8991L6.00001 32.2H10.2L18.6 23.1L25.668 32.2H34L22.8 17.5L31.9 7H28.4L20.7 15.4L14.401 7H6.06898H6.06736ZM9.66753 8.73423H12.9327L29.7327 30.4658H26.5697L9.66753 8.73423Z" fill="#5B616B"></path></g></svg></a>
+            <a class="footer-icon" id="footer_facebook" href="https://www.facebook.com/ncbi.nlm" aria-label="Facebook"><svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300"><title>Facebook</title>
+<path class="cls-11" d="M210.5,115.12H171.74V97.82c0-8.14,5.39-10,9.19-10h27.14V52l-39.32-.12c-35.66,0-42.42,26.68-42.42,43.77v19.48H99.09v36.32h27.24v109h45.41v-109h35Z"></path></svg></a>
+            <a class="footer-icon" id="footer_linkedin" href="https://www.linkedin.com/company/ncbinlm" aria-label="LinkedIn"><svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300"><title>LinkedIn</title>
+<path class="cls-11" d="M101.64,243.37H57.79v-114h43.85Zm-22-131.54h-.26c-13.25,0-21.82-10.36-21.82-21.76,0-11.65,8.84-21.15,22.33-21.15S101.7,78.72,102,90.38C102,101.77,93.4,111.83,79.63,111.83Zm100.93,52.61A17.54,17.54,0,0,0,163,182v61.39H119.18s.51-105.23,0-114H163v13a54.33,54.33,0,0,1,34.54-12.66c26,0,44.39,18.8,44.39,55.29v58.35H198.1V182A17.54,17.54,0,0,0,180.56,164.44Z"></path></svg></a>
+            <a class="footer-icon" id="footer_github" href="https://github.com/ncbi" aria-label="GitHub"><svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 300 300"><defs><style>
+                    .cls-11,
+                    .cls-12 {
+                      fill: #737373;
+                    }
+
+                    .cls-11 {
+                      fill-rule: evenodd;
+                    }
+                  </style></defs><title>GitHub</title>
+<path class="cls-11" d="M151.36,47.28a105.76,105.76,0,0,0-33.43,206.1c5.28,1,7.22-2.3,7.22-5.09,0-2.52-.09-10.85-.14-19.69-29.42,6.4-35.63-12.48-35.63-12.48-4.81-12.22-11.74-15.47-11.74-15.47-9.59-6.56.73-6.43.73-6.43,10.61.75,16.21,10.9,16.21,10.9,9.43,16.17,24.73,11.49,30.77,8.79,1-6.83,3.69-11.5,6.71-14.14C108.57,197.1,83.88,188,83.88,147.51a40.92,40.92,0,0,1,10.9-28.39c-1.1-2.66-4.72-13.42,1-28,0,0,8.88-2.84,29.09,10.84a100.26,100.26,0,0,1,53,0C198,88.3,206.9,91.14,206.9,91.14c5.76,14.56,2.14,25.32,1,28a40.87,40.87,0,0,1,10.89,28.39c0,40.62-24.74,49.56-48.29,52.18,3.79,3.28,7.17,9.71,7.17,19.58,0,14.15-.12,25.54-.12,29,0,2.82,1.9,6.11,7.26,5.07A105.76,105.76,0,0,0,151.36,47.28Z"></path><path class="cls-12" d="M85.66,199.12c-.23.52-1.06.68-1.81.32s-1.2-1.06-.95-1.59,1.06-.69,1.82-.33,1.21,1.07.94,1.6Zm-1.3-1"></path><path class="cls-12" d="M90,203.89c-.51.47-1.49.25-2.16-.49a1.61,1.61,0,0,1-.31-2.19c.52-.47,1.47-.25,2.17.49s.82,1.72.3,2.19Zm-1-1.08"></path><path class="cls-12" d="M94.12,210c-.65.46-1.71,0-2.37-.91s-.64-2.07,0-2.52,1.7,0,2.36.89.65,2.08,0,2.54Zm0,0"></path><path class="cls-12" d="M99.83,215.87c-.58.64-1.82.47-2.72-.41s-1.18-2.06-.6-2.7,1.83-.46,2.74.41,1.2,2.07.58,2.7Zm0,0"></path><path class="cls-12" d="M107.71,219.29c-.26.82-1.45,1.2-2.64.85s-2-1.34-1.74-2.17,1.44-1.23,2.65-.85,2,1.32,1.73,2.17Zm0,0"></path><path class="cls-12" d="M116.36,219.92c0,.87-1,1.59-2.24,1.61s-2.29-.68-2.3-1.54,1-1.59,2.26-1.61,2.28.67,2.28,1.54Zm0,0"></path><path class="cls-12" d="M124.42,218.55c.15.85-.73,1.72-2,1.95s-2.37-.3-2.52-1.14.73-1.75,2-2,2.37.29,2.53,1.16Zm0,0"></path></svg></a>
+            <a class="footer-icon" id="footer_blog" href="https://ncbiinsights.ncbi.nlm.nih.gov/" aria-label="Blog">
+              <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 40 40"><defs><style>.cls-1{fill:#737373;}</style></defs><path class="cls-1" d="M14,30a4,4,0,1,1-4-4,4,4,0,0,1,4,4Zm11,3A19,19,0,0,0,7.05,15a1,1,0,0,0-1,1v3a1,1,0,0,0,.93,1A14,14,0,0,1,20,33.07,1,1,0,0,0,21,34h3a1,1,0,0,0,1-1Zm9,0A28,28,0,0,0,7,6,1,1,0,0,0,6,7v3a1,1,0,0,0,1,1A23,23,0,0,1,29,33a1,1,0,0,0,1,1h3A1,1,0,0,0,34,33Z"></path></svg></a>
+          </div>
+        </div>
+      </section><section class="container-fluid bg-primary"><div class="container pt-5">
+          <div class="row mt-3">
+            <div class="col-lg-3 col-12">
+              <p><a class="text-white" href="https://www.nlm.nih.gov/socialmedia/index.html">Connect with NLM</a></p>
+              <ul class="list-inline social_media">
+<li class="list-inline-item">
+<a href="https://twitter.com/NLM_NIH" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                    <svg width="35" height="35" viewbox="0 0 38 35" fill="none" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title>
+<g id="twitterx1009" clip-path="url(#clip0_65276_3946)"><path id="Vector" d="M17.5006 34.6565C26.9761 34.6565 34.6575 26.9751 34.6575 17.4996C34.6575 8.02416 26.9761 0.342773 17.5006 0.342773C8.02514 0.342773 0.34375 8.02416 0.34375 17.4996C0.34375 26.9751 8.02514 34.6565 17.5006 34.6565Z" fill="#205493" stroke="white" stroke-width="1.2" stroke-miterlimit="10"></path><path id="path1009" d="M8.54811 8.5L16.2698 18.4279L8.50001 26.5H11.5L17.5 20L22.5486 26.5H28.5L20.5 16L27 8.5H24.5L19 14.5L14.5007 8.5H8.54927H8.54811ZM11.1197 9.73873H13.4519L25.4519 25.2613H23.1926L11.1197 9.73873Z" fill="white"></path></g><defs><clippath id="clip0_65276_3946"><rect width="38" height="38" fill="white"></rect></clippath></defs></svg></a>
+                </li>
+                <li class="list-inline-item"><a href="https://www.facebook.com/nationallibraryofmedicine" aria-label="Facebook" rel="noopener noreferrer" target="_blank">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 249 249" style="enable-background:new 0 0 249 249;" xml:space="preserve"><style type="text/css">
+                        .st10 {
+                          fill: #FFFFFF;
+                        }
+
+                        .st110 {
+                          fill: none;
+                          stroke: #FFFFFF;
+                          stroke-width: 8;
+                          stroke-miterlimit: 10;
+                        }
+                      </style>
+<title>SM-Facebook</title>
+<g><g><path class="st10" d="M159,99.1h-24V88.4c0-5,3.3-6.2,5.7-6.2h16.8V60l-24.4-0.1c-22.1,0-26.2,16.5-26.2,27.1v12.1H90v22.5h16.9
+                                                      v67.5H135v-67.5h21.7L159,99.1z"></path></g></g><circle class="st110" cx="123.6" cy="123.2" r="108.2"></circle></svg></a></li>
+                <li class="list-inline-item"><a href="https://www.youtube.com/user/NLMNIH" aria-label="Youtube" target="_blank" rel="noopener noreferrer"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 249 249" style="enable-background:new 0 0 249 249;" xml:space="preserve"><title>SM-Youtube</title>
+<style type="text/css">
+                        .st4 {
+                          fill: none;
+                          stroke: #FFFFFF;
+                          stroke-width: 8;
+                          stroke-miterlimit: 10;
+                        }
+
+                        .st5 {
+                          fill: #FFFFFF;
+                        }
+                      </style>
+<circle class="st4" cx="124.2" cy="123.4" r="108.2"></circle><g transform="translate(0,-952.36218)"><path class="st5" d="M88.4,1037.4c-10.4,0-18.7,8.3-18.7,18.7v40.1c0,10.4,8.3,18.7,18.7,18.7h72.1c10.4,0,18.7-8.3,18.7-18.7
+                                            v-40.1c0-10.4-8.3-18.7-18.7-18.7H88.4z M115.2,1058.8l29.4,17.4l-29.4,17.4V1058.8z"></path></g></svg></a></li>
+              </ul>
+</div>
+            <div class="col-lg-3 col-12">
+              <p class="address_footer text-white">National Library of Medicine<br><a href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/@38.9959508,-77.101021,17z/data=!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb:0x19156f88b27635b8!8m2!3d38.9959508!4d-77.0988323" class="text-white" target="_blank" rel="noopener noreferrer">8600 Rockville Pike<br>
+                  Bethesda, MD 20894</a></p>
+            </div>
+            <div class="col-lg-3 col-12 centered-lg">
+              <p><a href="https://www.nlm.nih.gov/web_policies.html" class="text-white">Web Policies</a><br><a href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office" class="text-white">FOIA</a><br><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" class="text-white" id="vdp">HHS Vulnerability Disclosure</a></p>
+            </div>
+            <div class="col-lg-3 col-12 centered-lg">
+              <p><a class="supportLink text-white" href="https://support.nlm.nih.gov/">Help</a><br><a href="https://www.nlm.nih.gov/accessibility.html" class="text-white">Accessibility</a><br><a href="https://www.nlm.nih.gov/careers/careers.html" class="text-white">Careers</a></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 centered-lg">
+              <nav class="bottom-links"><ul class="mt-3">
+<li>
+                    <a class="text-white" href="//www.nlm.nih.gov/">NLM</a>
+                  </li>
+                  <li>
+                    <a class="text-white" href="https://www.nih.gov/">NIH</a>
+                  </li>
+                  <li>
+                    <a class="text-white" href="https://www.hhs.gov/">HHS</a>
+                  </li>
+                  <li>
+                    <a class="text-white" href="https://www.usa.gov/">USA.gov</a>
+                  </li>
+                </ul></nav>
+</div>
+          </div>
+        </div>
+      </section></footer><!-- ========== END FOOTER ========== --><!-- javascript to inject NWDS meta tags. Note: value of nwds_version is updated by "npm version" command --><script type="text/javascript">
+    var nwds_version = "1.2.6";
+
+    var meta_nwds_ver = document.createElement('meta');
+    meta_nwds_ver.name = 'ncbi_nwds_ver';
+    meta_nwds_ver.content = nwds_version;
+    document.getElementsByTagName('head')[0].appendChild(meta_nwds_ver);
+
+    var meta_nwds = document.createElement('meta');
+    meta_nwds.name = 'ncbi_nwds';
+    meta_nwds.content = 'yes';
+    document.getElementsByTagName('head')[0].appendChild(meta_nwds);
+
+	var alertsUrl = "/core/alerts/alerts.js";
+	if (typeof ncbiBaseUrl !== 'undefined') {
+		alertsUrl = ncbiBaseUrl + alertsUrl;
+	}
+  </script><!-- JavaScript --><script src="/myncbi/static/CACHE/js/output.0f72d6a64937.js"></script><script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous">
+    </script><script>
+        var fallbackJquery = "/myncbi/static/base/js/jquery-3.5.0.min.js";
+        window.jQuery || document.write("<script src=" + fallbackJquery + ">\x3C/script>")
+    </script><script src="/myncbi/static/CACHE/js/output.4f512230372d.js"></script><input type="hidden" id="base_url" value="/myncbi/collections/mybibliography/"><script src="/myncbi/static/CACHE/js/output.90d664616605.js"></script><script type="text/javascript" src="https://www.ncbi.nlm.nih.gov/core/pinger/pinger.js"> </script>
+</body>
+</html>
+
