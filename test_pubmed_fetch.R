@@ -72,11 +72,13 @@ fetch_myncbi <- function(url, max_pages = 20) {
   }
 
   tryCatch({
-    sep <- if (grepl("\\?", url)) "&" else "?"
+    # Strip any existing query string — MyNCBI ignores ?page=N when appended
+    # to ?sort=date&direction=descending and just returns page 1.
+    base_url <- sub("\\?.*$", "", url)
     acc <- list(); seen_pmids <- character(0)
 
     for (p in seq_len(max_pages)) {
-      page_url <- paste0(url, sep, "page=", p)
+      page_url <- paste0(base_url, "?page=", p)
       page <- rvest::read_html(page_url)
       df   <- parse_page(page)
       cat(sprintf("  page %d: %s citations\n", p,
@@ -167,7 +169,30 @@ fetch_rentrez <- function(author_term = "Hawken S[Author]",
   })
 }
 
-# ---- Run ----
+# ---- Pagination probe: see what URLs MyNCBI uses for paging ----
+cat("Probing MyNCBI page 1 for pagination links...\n")
+tryCatch({
+  p1 <- rvest::read_html(myncbi_url)
+  links <- p1 %>% rvest::html_elements("a")
+  hrefs <- rvest::html_attr(links, "href")
+  paging <- unique(hrefs[grepl("page|start|offset|currentPage|p=", hrefs,
+                               ignore.case = TRUE)])
+  paging <- paging[!is.na(paging)]
+  if (length(paging) > 0) {
+    cat("Candidate paging hrefs found on page 1:\n")
+    for (h in head(paging, 15)) cat("  ", h, "\n")
+  } else {
+    cat("No obvious pagination hrefs found in <a> tags.\n")
+  }
+
+  # Also report the citation count badge if present
+  count_node <- p1 %>% rvest::html_element(".result-count, .citations-count, .total")
+  if (!inherits(count_node, "xml_missing")) {
+    cat("Count badge text: ", rvest::html_text2(count_node), "\n")
+  }
+}, error = function(e) cat("Probe failed: ", conditionMessage(e), "\n"))
+cat("\n")
+
 cat("Trying MyNCBI scrape first...\n")
 pubs <- fetch_myncbi(myncbi_url)
 if (is.null(pubs)) {

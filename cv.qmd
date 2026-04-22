@@ -627,12 +627,15 @@ fetch_myncbi <- function(url, max_pages = 20) {
   }
 
   tryCatch({
-    sep <- if (grepl("\\?", url)) "&" else "?"
+    # MyNCBI's pagination uses bare ?page=N and ignores it when appended to
+    # an existing query string (e.g. ?sort=date&direction=descending&page=2
+    # silently returns page 1). Strip the existing query before paging.
+    base_url <- sub("\\?.*$", "", url)
     acc <- list()
     seen_pmids <- character(0)
 
     for (p in seq_len(max_pages)) {
-      page_url <- paste0(url, sep, "page=", p)
+      page_url <- paste0(base_url, "?page=", p)
       page <- rvest::read_html(page_url)
       df   <- parse_page(page)
       if (is.null(df) || nrow(df) == 0) break
