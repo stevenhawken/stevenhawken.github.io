@@ -15,21 +15,15 @@ suppressPackageStartupMessages({
 cv_data    <- read_yaml("cv_data.yml")
 myncbi_url <- cv_data$personal$links$pubmed
 
-# ---- fetch_myncbi ----
-fetch_myncbi <- function(url) {
-  sep <- if (grepl("\\?", url)) "&" else "?"
-  paged_url <- paste0(url, sep, "pageSize=500")
-
+# ---- fetch_myncbi (paginated) ----
+fetch_myncbi <- function(url, max_pages = 20) {
   safe_text <- function(node) {
     if (inherits(node, "xml_missing")) return("")
     txt <- rvest::html_text2(node)
     if (is.null(txt) || is.na(txt)) "" else txt
   }
 
-  tryCatch({
-    page <- tryCatch(rvest::read_html(paged_url),
-                     error = function(e) rvest::read_html(url))
-
+  parse_page <- function(page) {
     items <- page %>% rvest::html_elements("div.citation")
     if (length(items) == 0) return(NULL)
 
@@ -74,7 +68,31 @@ fetch_myncbi <- function(url) {
       data.frame(authors = authors, title = title, journal = journal,
                  date = date, pmid = pmid, stringsAsFactors = FALSE)
     })
-    df <- do.call(rbind, rows)
+    do.call(rbind, rows)
+  }
+
+  tryCatch({
+    sep <- if (grepl("\\?", url)) "&" else "?"
+    acc <- list(); seen_pmids <- character(0)
+
+    for (p in seq_len(max_pages)) {
+      page_url <- paste0(url, sep, "page=", p)
+      page <- rvest::read_html(page_url)
+      df   <- parse_page(page)
+      cat(sprintf("  page %d: %s citations\n", p,
+                  if (is.null(df)) "0" else as.character(nrow(df))))
+      if (is.null(df) || nrow(df) == 0) break
+
+      new_rows <- df[!df$pmid %in% seen_pmids, , drop = FALSE]
+      if (nrow(new_rows) == 0) break
+      acc[[length(acc) + 1]] <- new_rows
+      seen_pmids <- c(seen_pmids, new_rows$pmid)
+
+      if (nrow(df) < 50) break
+    }
+
+    if (length(acc) == 0) return(NULL)
+    df <- do.call(rbind, acc)
     df <- df[nchar(df$title) > 0 & nchar(df$pmid) > 0, , drop = FALSE]
     if (nrow(df) == 0) return(NULL)
     df
