@@ -25,6 +25,132 @@ suppressPackageStartupMessages({
 # Read CV data from YAML file
 cv_data <- read_yaml("cv_data.yml")
 
+# ---------------------------------------------------------------------------
+# Schema validation — fail LOUDLY on typo'd / renamed keys.
+#
+# Why: every section below renders with `if (!is.null(x)) ... else "None listed"`.
+# A misspelled YAML key therefore looks identical to an empty section and the
+# render succeeds with silently missing content. This check turns that into a
+# hard error, and prints a per-section count so empty sections are visible in
+# the render log.
+#
+# Maintenance: if you add a NEW section to cv_data.yml, add it here too.
+#   - character vector value  = required sub-keys of a mapping section
+#   - NA                      = section is a plain list of entries
+# ---------------------------------------------------------------------------
+cv_schema <- list(
+  personal                         = c("name", "positions", "links"),
+  extra_pmids                      = NA,
+  exclude_pmids                    = NA,
+  education                        = NA,
+  employment                       = NA,
+  thesis_examiner                  = NA,
+  thesis_defense_chairperson       = NA,
+  thesis_proposal_examiner         = NA,
+  phd_comprehensive_examiner       = NA,
+  data_safety_monitoring_committees = NA,
+  grant_review_committees          = NA,
+  academic_honours                 = NA,
+  trainee_supervision              = c("in_progress", "completed"),
+  thesis_advisory_committee_member = c("in_progress", "completed"),
+  teaching                         = c("graduate_courses", "guest_lectures"),
+  conference_session_organizing    = NA,
+  invited_talks_seminars           = NA,
+  external_research_funding        = NA,
+  internal_research_funding        = NA,
+  editorial_review                 = c("journals"),
+  preprints                        = NA
+)
+
+validate_cv_data <- function(data, schema) {
+  problems <- character(0)
+  counts   <- character(0)
+
+  # 1. Every section the CV renders must exist in the YAML.
+  missing_sections <- setdiff(names(schema), names(data))
+  if (length(missing_sections) > 0) {
+    problems <- c(problems, sprintf(
+      "Missing top-level section(s) in cv_data.yml: %s",
+      paste(missing_sections, collapse = ", ")))
+  }
+
+  # 2. Sections present in the YAML but unknown here are usually a typo
+  #    (e.g. 'trainee_supervison') or a new section that needs adding above.
+  unknown_sections <- setdiff(names(data), names(schema))
+  if (length(unknown_sections) > 0) {
+    problems <- c(problems, sprintf(
+      paste0("Unknown top-level section(s) in cv_data.yml: %s\n",
+             "  -> typo, or a new section that must be added to cv_schema in cv.qmd"),
+      paste(unknown_sections, collapse = ", ")))
+  }
+
+  for (section in intersect(names(schema), names(data))) {
+    expected_subkeys <- schema[[section]]
+    value <- data[[section]]
+
+    if (length(expected_subkeys) == 1 && is.na(expected_subkeys[1])) {
+      # Plain list section.
+      counts <- c(counts, sprintf("  %-34s %d entries", section, length(value)))
+      next
+    }
+
+    # Mapping section: sub-keys must match exactly.
+    if (!is.list(value) || is.null(names(value))) {
+      problems <- c(problems, sprintf(
+        "Section '%s' should be a mapping with sub-keys: %s",
+        section, paste(expected_subkeys, collapse = ", ")))
+      next
+    }
+
+    missing_subkeys <- setdiff(expected_subkeys, names(value))
+    if (length(missing_subkeys) > 0) {
+      problems <- c(problems, sprintf(
+        paste0("Section '%s' is missing sub-key(s): %s\n",
+               "  -> found instead: %s"),
+        section,
+        paste(missing_subkeys, collapse = ", "),
+        paste(names(value), collapse = ", ")))
+    }
+
+    unknown_subkeys <- setdiff(names(value), expected_subkeys)
+    if (length(unknown_subkeys) > 0) {
+      problems <- c(problems, sprintf(
+        paste0("Section '%s' has unrecognised sub-key(s): %s\n",
+               "  -> expected: %s"),
+        section,
+        paste(unknown_subkeys, collapse = ", "),
+        paste(expected_subkeys, collapse = ", ")))
+    }
+
+    for (sub in intersect(expected_subkeys, names(value))) {
+      # Only count list-valued sub-keys; scalars (e.g. personal$name) aren't
+      # collections and a count would be meaningless noise.
+      if (!is.list(value[[sub]])) next
+      counts <- c(counts, sprintf("  %-34s %d entries",
+                                  paste0(section, "$", sub),
+                                  length(value[[sub]])))
+    }
+  }
+
+  # Per-section counts: a section that reads 0 entries is either genuinely
+  # empty or a sign something went wrong upstream — either way, visible.
+  message("\n=== cv_data.yml section counts ===")
+  message(paste(counts, collapse = "\n"))
+  message("==================================\n")
+
+  if (length(problems) > 0) {
+    stop(paste0(
+      "\n\n*** cv_data.yml FAILED VALIDATION — CV NOT RENDERED ***\n\n",
+      paste0("  - ", problems, collapse = "\n\n"),
+      "\n\nFix cv_data.yml (or update cv_schema in cv.qmd), then re-run ./refresh.sh\n"),
+      call. = FALSE)
+  }
+
+  invisible(TRUE)
+}
+
+validate_cv_data(cv_data, cv_schema)
+
 # Helper function to format names with bold for Steven Hawken
 bold_author <- function(text) {
   gsub("(Hawken S|Hawken, S|Steven Hawken|S Hawken|S\\.? Hawken)",
@@ -37,6 +163,38 @@ bold_author <- function(text) {
 escape_pipes <- function(text) {
   if (is.null(text) || is.na(text)) return("")
   gsub("\\|", "/", text)
+}
+
+# Summary count line for a list of trainees, broken down by degree type.
+# Returns a preformatted italic markdown line, or NULL if there are no entries.
+# Any degree label not in `degrees` (e.g. a typo, or a new category) is counted
+# and displayed separately rather than silently dropped from the totals.
+degree_summary <- function(entries, degrees = c("PhD", "MSc", "PDF")) {
+  if (is.null(entries) || length(entries) == 0) return(NULL)
+
+  labels <- vapply(entries, function(e) {
+    d <- e$degree
+    if (is.null(d) || length(d) == 0 || is.na(d)) "Degree unspecified" else trimws(as.character(d))
+  }, character(1))
+
+  parts <- sprintf("%d %s", vapply(degrees, function(d) sum(labels == d), integer(1)), degrees)
+
+  other <- setdiff(unique(labels), degrees)
+  if (length(other) > 0) {
+    parts <- c(parts, sprintf("%d %s",
+                              vapply(other, function(o) sum(labels == o), integer(1)),
+                              other))
+  }
+
+  sprintf("*%s — %d total*\n\n", paste(parts, collapse = " · "), length(entries))
+}
+
+# Simple total count line (no degree breakdown).
+total_summary <- function(...) {
+  groups <- list(...)
+  n <- sum(vapply(groups, length, integer(1)))
+  if (n == 0) return(NULL)
+  sprintf("*%d total*\n\n", n)
 }
 ```
 
@@ -291,8 +449,9 @@ if (!is.null(conf_sessions) && length(conf_sessions) > 0) {
 
 trainee <- cv_data$trainee_supervision
 
-if (!is.null(trainee$current_inprogress) && length(trainee$current_inprogress) > 0) {
-  for (student in trainee$current_inprogress) {
+if (!is.null(trainee$in_progress) && length(trainee$in_progress) > 0) {
+  cat(degree_summary(trainee$in_progress))
+  for (student in trainee$in_progress) {
     cat("**", student$name, "**\n\n")
     cat(student$degree, " | ", student$institution, " (", student$years, ")\n\n")
     cat("Thesis: ", student$thesis_topic, "\n\n")
@@ -312,6 +471,7 @@ if (!is.null(trainee$current_inprogress) && length(trainee$current_inprogress) >
 #| message: false
 
 if (!is.null(trainee$completed) && length(trainee$completed) > 0) {
+  cat(degree_summary(trainee$completed))
   for (student in trainee$completed) {
     cat("**", student$name, "**\n\n")
     cat(student$degree, " | ", student$institution, " (", student$years, ")\n\n")
@@ -330,6 +490,18 @@ if (!is.null(trainee$completed) && length(trainee$completed) > 0) {
 ```
 
 ## Thesis Advisory Committee Memberships
+
+```{r}
+#| output: asis
+#| echo: false
+#| warning: false
+#| message: false
+
+# Combined total across in-progress and completed memberships (no degree
+# breakdown, by design).
+tac <- cv_data$thesis_advisory_committee_member
+cat(total_summary(tac$in_progress, tac$completed))
+```
 
 ### In Progress
 
