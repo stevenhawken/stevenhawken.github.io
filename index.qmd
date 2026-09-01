@@ -3,7 +3,7 @@ title: "Steven Hawken PhD"
 ---
 
 <div style="text-align: center; margin: 1rem 0 1.5rem 0;">
-<img src="hero_banner.png" alt="Steven Hawken - AI, Epidemiology, and Biostatistics" style="width: 100%; max-width: 1200px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+<img src="hero_banner.jpg" alt="Steven Hawken at Stonehenge" style="width: 100%; max-width: 1200px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
 </div>
 
 **Senior Scientist**, Ottawa Hospital Research Institute
