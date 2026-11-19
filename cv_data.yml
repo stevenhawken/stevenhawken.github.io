@@ -18,7 +18,13 @@ personal:
 # (pre-ORCID, ~pre-2015) where you didn't list an Ottawa-area affiliation, or
 # for any paper the auto-search misses. Just paste the bare PMID number.
 # Example: - 15234567   # Hawken et al, Lancet, 2004 (pre-ORCID, U of Guelph)
-extra_pmids: []
+#
+# NB: the auto-query has two branches (ORCID, or name + Ottawa-area affiliation).
+# Engineering/CS venues (IEEE, ACM, SPIE, MICCAI) often deposit neither an ORCID
+# nor author affiliations to PubMed, so they fail BOTH branches and go missing.
+# Check this list whenever an AI/methods paper doesn't appear.
+extra_pmids:
+  - 35077357   # Carrington et al, Deep ROC Analysis, IEEE TPAMI 2023;45(1):329-341
 
 # PMIDs to EXCLUDE from the publication list (e.g. another "Hawken S" author
 # whose paper got swept in by the affiliation filter, or duplicates).

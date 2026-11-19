@@ -13,3 +13,25 @@
 ---- pub fetch chunk started  2026-08-31 12:22:41  ----
 ---- pub fetch chunk started  2026-08-31 13:39:59  ----
 ---- pub fetch chunk started  2026-09-01 11:09:29  ----
+---- pub fetch chunk started  2026-11-19 12:01:31  ----
+---- pub fetch chunk started  2026-11-19 12:10:26  ----
+---- pub fetch chunk started  2026-11-19 12:15:43  ----
+---- pub fetch chunk started  2026-11-19 12:26:50  ----
+2026-11-19 12:26:52 rentrez search found 159 PMIDs (of 159 total)
+2026-11-19 12:26:55 rentrez parsed 159 articles
+2026-11-19 12:26:55 fetching 1 explicit PMIDs from extra_pmids
+2026-11-19 12:26:55 merged 1 new papers from extra_pmids
+2026-11-19 12:26:55 FINAL: 160 publications, source = PubMed (rentrez)
+---- pub fetch chunk started  2026-11-19 12:26:59  ----
+---- pub fetch chunk started  2026-11-19 12:28:22  ----
+2026-11-19 12:28:23 rentrez search found 159 PMIDs (of 159 total)
+2026-11-19 12:28:27 rentrez parsed 159 articles
+2026-11-19 12:28:27 fetching 1 explicit PMIDs from extra_pmids
+2026-11-19 12:28:27 merged 1 new papers from extra_pmids
+2026-11-19 12:28:27 FINAL: 160 publications, source = PubMed (rentrez)
+---- pub fetch chunk started  2026-11-19 12:36:15  ----
+2026-11-19 12:36:16 rentrez search found 159 PMIDs (of 159 total)
+2026-11-19 12:36:19 rentrez parsed 159 articles
+2026-11-19 12:36:19 fetching 1 explicit PMIDs from extra_pmids
+2026-11-19 12:36:19 merged 1 new papers from extra_pmids
+2026-11-19 12:36:19 FINAL: 160 publications, source = PubMed (rentrez)

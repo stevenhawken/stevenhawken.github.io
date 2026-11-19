@@ -712,7 +712,14 @@ if (!is.null(invited) && length(invited) > 0) {
 #| message: true
 #| cache: false
 #| freeze: false
-
+# Global logger. Quarto hides messages from this chunk, so every step of the
+# publication fetch is written to _pubmed_fetch.log in the CV folder instead.
+# (log_msg used to be defined only inside fetch_myncbi(), so fetch_pmids()
+# could not see it and crashed whenever extra_pmids was non-empty.)
+log_path <- "_pubmed_fetch.log"
+log_msg <- function(...) {
+  cat(format(Sys.time()), " ", ..., "\n", sep = "", file = log_path, append = TRUE)
+}
 # Sentinel: prove this chunk ran (even if Quarto suppresses messages)
 cat("---- pub fetch chunk started ", format(Sys.time()), " ----\n",
     file = "_pubmed_fetch.log", append = TRUE)
@@ -852,7 +859,7 @@ fetch_myncbi <- function(url, max_pages = 20) {
     if (nrow(df) == 0) return(NULL)
     df
   }, error = function(e) {
-    message("MyNCBI scrape failed: ", conditionMessage(e))
+    log_msg("MyNCBI scrape FAILED: ", conditionMessage(e))
     NULL
   })
 }
@@ -886,6 +893,7 @@ fetch_rentrez <- function(orcid = "0000-0002-3341-9022",
     }
 
     sres <- rentrez::entrez_search(db = "pubmed", term = query, retmax = retmax)
+    log_msg("rentrez search found ", length(sres$ids), " PMIDs (of ", sres$count, " total)")
     if (length(sres$ids) == 0) return(NULL)
 
     # Fetch in batches of 100 to be polite.
@@ -955,9 +963,10 @@ fetch_rentrez <- function(orcid = "0000-0002-3341-9022",
     # Most recent first
     df <- df[order(-df$year, df$title), ]
     df$year <- NULL
+    log_msg("rentrez parsed ", nrow(df), " articles")
     df
   }, error = function(e) {
-    message("rentrez fetch failed: ", conditionMessage(e))
+    log_msg("rentrez fetch FAILED: ", conditionMessage(e))
     NULL
   })
 }
@@ -1065,9 +1074,12 @@ if (!is.null(pubmed_pubs) && nrow(pubmed_pubs) > 0) {
 } else if (file.exists(pubmed_cache_file)) {
   pubmed_pubs <- readRDS(pubmed_cache_file)
   pubmed_source <- "cached"
+  log_msg("ALL LIVE FETCHES FAILED: showing old cache saved ",
+          format(file.mtime(pubmed_cache_file)))
 }
 
 if (is.null(pubmed_pubs)) pubmed_pubs <- empty_pubs
+log_msg("FINAL: ", nrow(pubmed_pubs), " publications, source = ", pubmed_source)
 ```
 
 ```{r}
@@ -1157,7 +1169,7 @@ if (!is.null(preprints) && length(preprints) > 0) {
 }
 ```
 
----
+------------------------------------------------------------------------
 
 ```{r}
 #| output: asis
