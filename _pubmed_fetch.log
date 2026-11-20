@@ -35,3 +35,23 @@
 2026-11-19 12:36:19 fetching 1 explicit PMIDs from extra_pmids
 2026-11-19 12:36:19 merged 1 new papers from extra_pmids
 2026-11-19 12:36:19 FINAL: 160 publications, source = PubMed (rentrez)
+---- pub fetch chunk started  2026-11-20 11:04:19  ----
+2026-11-20 11:04:20 rentrez search found 159 PMIDs (of 159 total)
+2026-11-20 11:04:23 rentrez parsed 159 articles
+2026-11-20 11:04:23 fetching 1 explicit PMIDs from extra_pmids
+2026-11-20 11:04:24 merged 1 new papers from extra_pmids
+2026-11-20 11:04:24 FINAL: 160 publications, source = PubMed (rentrez)
+---- pub fetch chunk started  2026-11-20 11:07:40  ----
+2026-11-20 11:07:41 reading my_bibliography.nbib (saved 2026-11-20 11:01:29)
+2026-11-20 11:07:41 found 174 PMIDs in a plain list; fetching details from PubMed
+2026-11-20 11:07:41 fetching 174 explicit PMIDs from extra_pmids
+2026-11-20 11:07:44 fetching 1 explicit PMIDs from extra_pmids
+2026-11-20 11:07:44 merged 0 new papers from extra_pmids
+2026-11-20 11:07:44 FINAL: 174 publications, source = My NCBI bibliography
+---- pub fetch chunk started  2026-11-20 11:10:20  ----
+2026-11-20 11:10:21 reading my_bibliography.nbib (saved 2026-11-20 11:01:29)
+2026-11-20 11:10:21 found 174 PMIDs in a plain list; fetching details from PubMed
+2026-11-20 11:10:21 fetching 174 explicit PMIDs from extra_pmids
+2026-11-20 11:10:25 fetching 1 explicit PMIDs from extra_pmids
+2026-11-20 11:10:26 merged 0 new papers from extra_pmids
+2026-11-20 11:10:26 FINAL: 174 publications, source = My NCBI bibliography

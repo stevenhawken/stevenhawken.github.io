@@ -1030,15 +1030,93 @@ fetch_pmids <- function(pmids) {
   })
 }
 
+# --- Method 0 (PRIMARY): your exported My NCBI bibliography ---
+# The CV lists exactly what your My NCBI bibliography holds. To refresh:
+#   My NCBI > My Bibliography > select ALL citations (not just the page on
+#   screen) > Manage citations > Export file > save it in this folder as
+#   my_bibliography.nbib (overwrite the old one), then run ./refresh.sh.
+# The export is MEDLINE text, parsed here with no web requests at all.
+# A plain list of PMIDs (one per line) also works: then the details are
+# fetched from PubMed by PMID with fetch_pmids().
+# (Scraping the public bibliography page directly is not an option: NCBI's
+# robots.txt blocks automated access to My NCBI pages, and its paging is
+# JavaScript-only, which is why fetch_myncbi() only ever got page 1.)
+bib_export_file <- "my_bibliography.nbib"
+
+parse_medline <- function(lines) {
+  recs <- list(); cur <- list(); last_tag <- NULL
+  flush <- function() {
+    if (length(cur) > 0) recs[[length(recs) + 1]] <<- cur
+    cur <<- list(); last_tag <<- NULL
+  }
+  for (ln in lines) {
+    if (!nzchar(trimws(ln))) { flush(); next }
+    if (grepl("^[A-Z0-9]{2,4} *- ", ln)) {
+      tag <- trimws(sub("^([A-Z0-9]{2,4}) *- .*$", "\\1", ln))
+      val <- trimws(sub("^[A-Z0-9]{2,4} *- ", "", ln))
+      if (tag == "PMID" && !is.null(cur$PMID)) flush()  # record with no blank line
+      cur[[tag]] <- c(cur[[tag]], val)
+      last_tag <- tag
+    } else if (!is.null(last_tag)) {
+      # Continuation line (indented): append to the previous field
+      n <- length(cur[[last_tag]])
+      cur[[last_tag]][n] <- paste(cur[[last_tag]][n], trimws(ln))
+    }
+  }
+  flush()
+
+  rows <- lapply(recs, function(r) {
+    f1 <- function(tag) if (!is.null(r[[tag]])) r[[tag]][1] else ""
+    title <- f1("TI"); if (!nzchar(title)) title <- f1("BTI")
+    authors <- paste(c(r[["AU"]], r[["CN"]]), collapse = ", ")
+    journal <- f1("JT"); if (!nzchar(journal)) journal <- f1("TA")
+    year <- substr(f1("DP"), 1, 4)
+    vip <- f1("VI")
+    if (nzchar(f1("IP"))) vip <- paste0(vip, "(", f1("IP"), ")")
+    if (nzchar(f1("PG"))) vip <- paste0(vip, ":", f1("PG"))
+    date <- if (nzchar(vip)) paste0(year, ";", vip) else year
+    data.frame(authors = authors, title = title, journal = journal,
+               date = date, pmid = f1("PMID"), stringsAsFactors = FALSE)
+  })
+  if (length(rows) == 0) return(NULL)
+  df <- do.call(rbind, rows)
+  df <- df[nzchar(df$title), , drop = FALSE]
+  df[!(nzchar(df$pmid) & duplicated(df$pmid)), , drop = FALSE]
+}
+
+read_bibliography <- function(path) {
+  if (!file.exists(path)) {
+    log_msg("no bibliography export found at ", path)
+    return(NULL)
+  }
+  tryCatch({
+    lines <- sub("\r$", "", readLines(path, warn = FALSE, encoding = "UTF-8"))
+    log_msg("reading ", path, " (saved ", format(file.mtime(path)), ")")
+    if (any(grepl("^PMID- ", lines))) {
+      df <- parse_medline(lines)
+      log_msg("parsed ", if (is.null(df)) 0 else nrow(df), " records from MEDLINE export")
+    } else {
+      pmids <- unique(unlist(regmatches(lines, gregexpr("\\b[0-9]{6,9}\\b", lines))))
+      log_msg("found ", length(pmids), " PMIDs in a plain list; fetching details from PubMed")
+      df <- fetch_pmids(pmids)
+    }
+    if (is.null(df) || nrow(df) == 0) NULL else df
+  }, error = function(e) {
+    log_msg("reading bibliography export FAILED: ", conditionMessage(e))
+    NULL
+  })
+}
+
 # --- Execute with fallback chain ---
-# rentrez is primary (MyNCBI scraping is broken — see fetch_myncbi comment).
-# fetch_myncbi is kept defined in case NCBI ever returns to server-side paging.
-pubmed_pubs <- fetch_rentrez()
-pubmed_source <- if (!is.null(pubmed_pubs)) "PubMed (rentrez)" else NA_character_
+# 1. Your exported bibliography (primary). 2. PubMed search via rentrez, only
+# if the export is missing or unreadable. 3. Last saved copy (further down).
+pubmed_pubs <- read_bibliography(bib_export_file)
+pubmed_source <- if (!is.null(pubmed_pubs)) "My NCBI bibliography" else NA_character_
 
 if (is.null(pubmed_pubs)) {
-  pubmed_pubs <- fetch_myncbi(myncbi_url)
-  if (!is.null(pubmed_pubs)) pubmed_source <- "MyNCBI"
+  log_msg("falling back to PubMed search (rentrez)")
+  pubmed_pubs <- fetch_rentrez()
+  if (!is.null(pubmed_pubs)) pubmed_source <- "PubMed (rentrez)"
 }
 
 # --- Merge in extra_pmids and apply exclude_pmids ---
