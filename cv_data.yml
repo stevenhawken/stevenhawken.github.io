@@ -223,7 +223,7 @@ data_safety_monitoring_committees:
 
 grant_review_committees:
   - date: "2026 June"
-    funder: "CIHR"
+    funder: "University of Ottawa Faculty of Medicine"
     program: "Translational Research Grant"
     effort: "~8 hours reviewing + 2 hr committee meeting"
   - date: "2026 June"

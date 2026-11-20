@@ -55,3 +55,10 @@
 2026-11-20 11:10:25 fetching 1 explicit PMIDs from extra_pmids
 2026-11-20 11:10:26 merged 0 new papers from extra_pmids
 2026-11-20 11:10:26 FINAL: 174 publications, source = My NCBI bibliography
+---- pub fetch chunk started  2026-11-20 16:47:13  ----
+2026-11-20 16:47:14 reading my_bibliography.nbib (saved 2026-11-20 11:01:29)
+2026-11-20 16:47:14 found 174 PMIDs in a plain list; fetching details from PubMed
+2026-11-20 16:47:14 fetching 174 explicit PMIDs from extra_pmids
+2026-11-20 16:47:17 fetching 1 explicit PMIDs from extra_pmids
+2026-11-20 16:47:18 merged 0 new papers from extra_pmids
+2026-11-20 16:47:18 FINAL: 174 publications, source = My NCBI bibliography
